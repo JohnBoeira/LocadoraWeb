@@ -1,5 +1,6 @@
-export class CupomCreateViewModel {
-    parceiroId: number;
+import { EntityViewModel } from "../entityViewModel";
+
+export class CupomCreateViewModel extends EntityViewModel {
     nome: string;
     valor: number;
     datavalidade: Date;

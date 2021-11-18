@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HttpService } from 'src/app/shared/http-service';
 import { IHttpParceiroService } from 'src/app/shared/interfaces/IHttpParceiroService';
 import { ParceiroCreateViewModel } from 'src/app/shared/viewModels/parceiro/ParceiroCreateViewModel';
 import { ParceiroDetailsViewModel } from 'src/app/shared/viewModels/parceiro/ParceiroDetailsViewModel';
@@ -11,29 +12,6 @@ import { environment } from 'src/environments/environment';
 @Injectable({
     providedIn: 'root'
 })
-export class HttpParceiroService implements IHttpParceiroService {
+export class HttpParceiroService extends HttpService<ParceiroListViewModel,ParceiroCreateViewModel,ParceiroDetailsViewModel, ParceiroEditViewModel> {
 
-    private apiUrl = environment.urlBase + "parceiro";
-
-    constructor(private http: HttpClient) { }
-
-    public obterParceiros(): Observable<ParceiroListViewModel[]> {
-        return this.http.get<ParceiroListViewModel[]>(`${this.apiUrl}`);
-    }
-
-    public adicionarParceiro(parceiro: ParceiroCreateViewModel): Observable<ParceiroCreateViewModel> {
-        return this.http.post<ParceiroCreateViewModel>(this.apiUrl, parceiro);
-    }
-
-    public obterParceiroPorId(parceiroId: number): Observable<ParceiroDetailsViewModel> {
-        return this.http.get<ParceiroDetailsViewModel>(`${this.apiUrl}/${parceiroId}`);
-    }
-
-    public editarParceiro(parceiro: ParceiroEditViewModel): Observable<ParceiroEditViewModel> {
-        return this.http.put<ParceiroEditViewModel>(`${this.apiUrl}/${parceiro.id}`, parceiro);
-    }
-
-    public excluirParceiro(parceiroId: number): Observable<number> {
-        return this.http.delete<number>(`${this.apiUrl}/${parceiroId}`);
-    }
 }

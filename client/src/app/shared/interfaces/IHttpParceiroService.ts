@@ -3,16 +3,9 @@ import { ParceiroCreateViewModel } from "../viewModels/parceiro/ParceiroCreateVi
 import { ParceiroDetailsViewModel } from "../viewModels/parceiro/ParceiroDetailsViewModel";
 import { ParceiroEditViewModel } from "../viewModels/parceiro/ParceiroEditViewModel";
 import { ParceiroListViewModel } from "../viewModels/parceiro/ParceiroListViewModel";
+import { IHttpService } from "./IHttpService";
 
-export interface IHttpParceiroService {
+export interface IHttpParceiroService extends IHttpService<ParceiroListViewModel,ParceiroCreateViewModel,ParceiroDetailsViewModel, ParceiroEditViewModel> {
 
-    obterParceiros(): Observable<ParceiroListViewModel[]>
-
-    adicionarParceiro(parceiro: ParceiroCreateViewModel): Observable<ParceiroCreateViewModel>
-
-    obterParceiroPorId(parceiroId: number): Observable<ParceiroDetailsViewModel>
-
-    editarParceiro(parceiro: ParceiroEditViewModel): Observable<ParceiroEditViewModel>
-
-    excluirParceiro(parceiroId: number): Observable<number>
+    
 }
