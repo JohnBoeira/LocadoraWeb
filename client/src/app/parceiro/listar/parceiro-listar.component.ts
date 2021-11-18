@@ -26,7 +26,7 @@ export class ParceiroListarComponent implements OnInit {
   }
 
   obterParceiros(): void {
-    this.servicoParceiro.obterParceiros()
+    this.servicoParceiro.obterEntidades()
       .subscribe(parceiros => {
         this.listaParceirosTotal = parceiros;
         this.atualizarParceiros();
@@ -44,7 +44,7 @@ export class ParceiroListarComponent implements OnInit {
   abrirConfirmacao(modal: any) {
     this.servicoModal.open(modal).result.then((resultado) => {
       if (resultado == 'Excluir') {
-        this.servicoParceiro.excluirParceiro(this.parceiroSelecionado)
+        this.servicoParceiro.excluirEntidade(this.parceiroSelecionado)
           .subscribe(() => {
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
               this.router.navigate(['parceiro/listar']);

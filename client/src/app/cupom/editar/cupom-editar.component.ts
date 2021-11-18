@@ -47,14 +47,14 @@ export class CupomEditarComponent implements OnInit {
   }
 
   carregarParceiros(): void {
-    this.servicoParceiro.obterParceiros()
+    this.servicoParceiro.obterEntidades()
       .subscribe(parceiros => {
         this.listaParceiros = parceiros;
       });
   }
 
   carregarCupom(): void {
-    this.servicoCupom.obterCupomPorId(this.id)
+    this.servicoCupom.obterEntidadePorId(this.id)
       .subscribe((cupom: CupomDetailsViewModel) => {
         this.carregarFormulario(cupom);
       });
@@ -67,7 +67,7 @@ export class CupomEditarComponent implements OnInit {
       valor: new FormControl(cupom.valor),
       valorMinimo: new FormControl(cupom.valorMinimo),
       dataValidade: new FormControl(cupom.dataValidade.toLocaleString().substring(0, 10)),
-      parceiroId: new FormControl(cupom.parceiroId),
+      parceiroId: new FormControl(cupom.id),
       tipo: new FormControl(cupom.tipo)
     });
   }
@@ -76,7 +76,7 @@ export class CupomEditarComponent implements OnInit {
     this.cupom = Object.assign({}, this.cupom, this.cadastroForm.value);
     this.cupom.id = this.id;
 
-    this.servicoCupom.editarCupom(this.cupom)
+    this.servicoCupom.editarEntidade(this.cupom)
       .subscribe(() => {
         this.router.navigate(['cupom/listar']);
       });

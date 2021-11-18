@@ -26,7 +26,7 @@ export class CupomListarComponent implements OnInit {
   }
 
   obterCupons(): void {
-    this.servicoCupom.obterCupons()
+    this.servicoCupom.obterEntidades()
       .subscribe(cupons => {
         this.listaCuponsTotal = cupons;
         this.atualizarCupons();
@@ -48,7 +48,7 @@ export class CupomListarComponent implements OnInit {
   abrirConfirmacao(modal: any) {
     this.servicoModal.open(modal).result.then((resultado) => {
       if (resultado == 'Excluir') {
-        this.servicoCupom.excluirCupom(this.cupomSelecionado)
+        this.servicoCupom.excluirEntidade(this.cupomSelecionado)
           .subscribe(() => {
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
               this.router.navigate(['cupom/listar']);

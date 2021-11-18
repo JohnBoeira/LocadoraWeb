@@ -53,7 +53,7 @@ namespace LocadoraVeiculos.Infra.ORM
             optionsBuilder
                 .UseLoggerFactory(SerilogLoggerFactory)
                 .EnableSensitiveDataLogging(true)
-                .UseSqlServer(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=DbLocadora_Novo;Integrated Security=True");
+                .UseSqlServer(@"Data Source=(localdb)\MsSqlLocalDb;Initial Catalog=DBLocadoraNova;Integrated Security=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

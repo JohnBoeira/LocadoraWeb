@@ -32,7 +32,7 @@ export class ParceiroEditarComponent implements OnInit {
   }
 
   carregarParceiro() {
-    this.servicoParceiro.obterParceiroPorId(this.id)
+    this.servicoParceiro.obterEntidadePorId(this.id)
       .subscribe((parceiro: ParceiroDetailsViewModel) => {
         this.carregarFormulario(parceiro);
       });
@@ -42,7 +42,7 @@ export class ParceiroEditarComponent implements OnInit {
     this.parceiro = Object.assign({}, this.parceiro, this.cadastroForm.value);
     this.parceiro.id = this.id;
 
-    this.servicoParceiro.editarParceiro(this.parceiro)
+    this.servicoParceiro.editarEntidade(this.parceiro)
       .subscribe(() => {
         this.router.navigate(['parceiro/listar']);
       });

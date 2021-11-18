@@ -45,14 +45,14 @@ export class CupomCriarComponent implements OnInit {
   adicionarCupom() {
     this.cupom = Object.assign({}, this.cupom, this.cadastroForm.value);
 
-    this.servicoCupom.adicionarCupom(this.cupom)
+    this.servicoCupom.adicionarEntidade(this.cupom)
       .subscribe(() => {
         this.router.navigate(['cupom/listar']);
       });
   }
 
   carregarParceiros(): void {
-    this.servicoParceiro.obterParceiros()
+    this.servicoParceiro.obterEntidades()
       .subscribe(parceiros => {
         this.listaParceiros = parceiros;
       });

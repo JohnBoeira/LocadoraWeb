@@ -24,7 +24,7 @@ export class ParceiroCriarComponent implements OnInit {
   adicionarParceiro() {
     this.parceiro = Object.assign({}, this.parceiro, this.cadastroForm.value);
 
-    this.servicoParceiro.adicionarParceiro(this.parceiro)
+    this.servicoParceiro.adicionarEntidade(this.parceiro)
       .subscribe(() => {
         this.router.navigate(['parceiro/listar']);
       });
