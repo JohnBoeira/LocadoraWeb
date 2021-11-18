@@ -1,3 +1,7 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using AutoMapper.Contrib.Autofac.DependencyInjection;
+using LocadoraVeiculos.WebApi.Config.AutofacConfig;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +23,8 @@ namespace LocadoraVeiculos.WebApi
             Configuration = configuration;
         }
 
+        public ILifetimeScope AutofacContainer { get; private set; }
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -27,9 +33,20 @@ namespace LocadoraVeiculos.WebApi
             services.AddControllers();
         }
 
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+
+            builder.RegisterAutoMapper(typeof(Startup).Assembly);
+
+
+            builder.RegisterModule(new ContainerModule());
+        }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            this.AutofacContainer = app.ApplicationServices.GetAutofacRoot();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
