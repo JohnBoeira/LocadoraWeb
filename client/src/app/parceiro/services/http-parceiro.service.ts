@@ -1,4 +1,5 @@
 
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/shared/http-service';
@@ -13,5 +14,7 @@ import { environment } from 'src/environments/environment';
     providedIn: 'root'
 })
 export class HttpParceiroService extends HttpService<ParceiroListViewModel,ParceiroCreateViewModel,ParceiroDetailsViewModel, ParceiroEditViewModel> {
-
+    constructor(http: HttpClient){
+        super(http,"parceiro");
+    }
 }
