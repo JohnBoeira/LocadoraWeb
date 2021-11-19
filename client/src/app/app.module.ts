@@ -22,6 +22,7 @@ import { HttpCupomService } from './cupom/services/http-cupom.service';
 import { FuncionarioCriarComponent } from './funcionario/criar/funcionario-criar.component';
 import { FuncionarioListarComponent } from './funcionario/listar/funcionario-listar.component';
 import { FuncionarioEditarComponent } from './funcionario/editar/funcionario-editar.component';
+import { HttpFuncionarioService } from './funcionario/services/https-funcionario.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { FuncionarioEditarComponent } from './funcionario/editar/funcionario-edi
   ],
   providers: [
     { provide: 'IHttpParceiroServiceToken', useClass: HttpParceiroService },
-    { provide: 'IHttpCupomServiceToken', useClass: HttpCupomService }
+    { provide: 'IHttpCupomServiceToken', useClass: HttpCupomService },
+    { provide: 'IHttpFuncionarioServiceToken', useClass: HttpFuncionarioService }
   ],
   bootstrap: [AppComponent]
 })

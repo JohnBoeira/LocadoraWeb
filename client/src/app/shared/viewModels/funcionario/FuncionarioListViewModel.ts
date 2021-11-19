@@ -1,6 +1,6 @@
 import { EntityViewModel } from "../entityViewModel";
 
-export class FuncionarioListViewModel{
+export class FuncionarioListViewModel extends EntityViewModel{
    nome: string;
 
    usuario: string;

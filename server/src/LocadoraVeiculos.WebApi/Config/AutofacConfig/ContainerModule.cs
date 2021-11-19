@@ -27,7 +27,7 @@ namespace LocadoraVeiculos.WebApi.Config.AutofacConfig
             builder.RegisterType<ParceiroAppService>().As<IParceiroAppService>();
 
             builder.RegisterType<FuncionarioOrmDao>().As<IFuncionarioRepository>();
-            builder.RegisterType<FuncionarioAppService>().As<IFuncionarioRepository>();
+            builder.RegisterType<FuncionarioAppService>().As<IFuncionarioAppService>();
 
 
 

@@ -27,22 +27,22 @@ namespace LocadoraVeiculos.Aplicacao.FuncionarioModule
         private const string IdFuncionarioFormat = "[Id do Funcionario: {FuncionarioId}]";
 
         private const string FuncionarioRegistrado_ComSucesso =
-            "Funcionario registrado com sucesso";
+            "Entidade registrado com sucesso";
 
         private const string FuncionarioNaoRegistrado =
-            "Funcionario NÃO registrado. Tivemos problemas com a inserção no banco de dados ";
+            "Entidade NÃO registrado. Tivemos problemas com a inserção no banco de dados ";
 
         private const string FuncionarioNaoEditado =
-           "Funcionario não editado. Tivemos problemas com a exclusão no banco de dados";
+           "Entidade não editado. Tivemos problemas com a exclusão no banco de dados";
 
         private const string FuncionarioEditado_ComSucesso =
-            "Funcionario editado com sucesso";
+            "Entidade editado com sucesso";
 
         private const string FuncionarioNaoExcluido =
            "Funcionario não excluído. Tivemos problemas com a exclusão no banco de dados";
 
         private const string FuncionarioExcluido_ComSucesso =
-            "Funcionario excluído com sucesso";
+            "Entidade excluído com sucesso";
 
 
         public string EditarEntidade(int id, Funcionario funcionario)

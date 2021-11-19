@@ -1,1 +1,50 @@
-<p>funcionario-editar works!</p>
+<div class="container main-container">
+   <h4>Editar Funcionário</h4>
+   <hr />
+   <form novalidate [formGroup]="cadastroForm" (ngSubmit)='atualizarFuncionario()'>
+       <div clas="form-group">
+           <label class="col-md-2 control-label" for="id">Id</label>
+           <div class="col-md-10">
+               <input class="form-control" id="id" type="text" readonly formControlName="id" />
+           </div>          
+
+           <label class="col-md-2 control-label" for="nome">Nome</label>
+           <div class="col-md-10">
+               <input class="form-control" id="nome" type="text" placeholder="Nome (requerido)"
+                   formControlName="nome" />
+           </div>
+
+           <label class="col-md-2 control-label" for="usuario">Usuário</label>
+           <div class="col-md-10">
+               <input class="form-control" id="usuario" type="text" placeholder="Usuário (requerido)"
+                   formControlName="usuario" />
+           </div>
+
+           <label class="col-md-2 control-label" for="senha">Senha</label>
+           <div class="col-md-10">
+               <input class="form-control" id="senha" type="text" placeholder="Senha (requerido)"
+                   formControlName="senha" />
+           </div>
+
+           <label class="col-md-2 control-label" for="salario">Salário</label>
+           <div class="col-md-10">
+               <input class="form-control" id="salario" type="text" placeholder="salario (requerido)"
+                   formControlName="salario" />
+           </div>
+
+           <label class="col-md-2 control-label" for="dataAdmissao">Data Admissão</label>
+           <div class="col-md-10">
+               <input class="form-control" id="dataAdmissao" type="date" placeholder="dataAdmissao (requerido)"
+                   formControlName="dataAdmissao" />
+           </div>
+       </div>
+       <br>
+       <br>
+       <div class="form-group">
+           <div class="container">
+               <button class="btn btn-success" id="registrar" type="submit">Salvar</button>
+               <button class="btn btn-danger" id="cancelar" (click)="cancelar()">Cancelar</button>
+           </div>
+       </div>
+   </form>
+</div>
