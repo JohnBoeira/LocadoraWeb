@@ -1,23 +1,20 @@
-﻿using System;
+﻿using LocadoraVeiculos.WebApi.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace LocadoraVeiculos.WebApi.ViewModels
 {
-    public class FuncionarioListViewModel
+    public class FuncionarioListViewModel : EntityViewModelBase
     {
-        public int Id { get; set; }
-
         public string Nome { get; set; }
 
         public string Usuario { get; set; }
     }
 
-    public class FuncionarioDetailsViewModel
+    public class FuncionarioDetailsViewModel : EntityViewModelBase
     {
-        public int Id { get; set; }
-
         public string Nome { get; set; }
 
         public string Usuario { get; set; }
@@ -32,7 +29,6 @@ namespace LocadoraVeiculos.WebApi.ViewModels
 
     public class FuncionarioCreateViewModel
     {
-
         public string Nome { get; set; }
 
         public string Usuario { get; set; }
@@ -44,10 +40,8 @@ namespace LocadoraVeiculos.WebApi.ViewModels
         public DateTime DataAdmissao { get; set; }
     }
 
-    public class FuncionarioEditViewModel
+    public class FuncionarioEditViewModel : EntityViewModelBase
     {
-        public int Id { get; set; }
-
         public string Nome { get; set; }
 
         public string Usuario { get; set; }

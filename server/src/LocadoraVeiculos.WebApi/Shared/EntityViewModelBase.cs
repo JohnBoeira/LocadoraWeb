@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace LocadoraVeiculos.WebApi.Shared
 {
-    public class EntityViewModel
+    public class EntityViewModelBase
     {
-        int Id { get; set; }
+        public int Id { get; set; }
     }
 }

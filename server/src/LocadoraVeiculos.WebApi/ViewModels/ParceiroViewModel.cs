@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace LocadoraVeiculos.WebApi.ViewModels
 {
-    public class ParceiroListViewModel : EntityViewModel
+    public class ParceiroListViewModel : EntityViewModelBase
     {
 
 
         public string Nome { get; set; }
     }
 
-    public class ParceiroDetailsViewModel : EntityViewModel
+    public class ParceiroDetailsViewModel : EntityViewModelBase
     {
      
 
@@ -27,7 +27,7 @@ namespace LocadoraVeiculos.WebApi.ViewModels
         public string Nome { get; set; }
     }
 
-    public class ParceiroEditViewModel : EntityViewModel
+    public class ParceiroEditViewModel : EntityViewModelBase
     {
 
         public string Nome { get; set; }

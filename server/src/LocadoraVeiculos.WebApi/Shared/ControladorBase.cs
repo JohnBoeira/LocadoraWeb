@@ -26,9 +26,9 @@ namespace LocadoraVeiculos.WebApi.Shared
         [HttpGet]
         public List<EListVM> GetAll()
         {
-            var parceiros = repositoryBase.SelecionarTodos();
+            var entidades = repositoryBase.SelecionarTodos();
             
-            var viewModel = mapper.Map<List<EListVM>>(parceiros);
+            var viewModel = mapper.Map<List<EListVM>>(entidades);
 
             return viewModel;
         }
@@ -37,12 +37,12 @@ namespace LocadoraVeiculos.WebApi.Shared
         [HttpGet("{id}")]
         public ActionResult<EDetailVM> Get(int id)
         {
-            var parceiro = repositoryBase.SelecionarPorId(id);
+            var entidade = repositoryBase.SelecionarPorId(id);
 
-            if (parceiro == null)
+            if (entidade == null)
                 return NotFound(id);
 
-            var viewModel = mapper.Map<EDetailVM>(parceiro);
+            var viewModel = mapper.Map<EDetailVM>(entidade);
 
             return Ok(viewModel);
         }
@@ -50,11 +50,11 @@ namespace LocadoraVeiculos.WebApi.Shared
         [HttpPost]
         public ActionResult<ECreateVM> Create(ECreateVM viewModel)
         {
-            Entity parceiro = mapper.Map<Entity>(viewModel);
+            Entity entidade = mapper.Map<Entity>(viewModel);
 
-            var resultado = appService.RegistrarNovaEntidade(parceiro);
+            var resultado = appService.RegistrarNovaEntidade(entidade);
 
-            if (resultado == "Parceiro registrado com sucesso")
+            if (resultado == "Entidade registrado com sucesso")
             {
                 return CreatedAtAction(nameof(Create), viewModel);
             }
@@ -68,11 +68,11 @@ namespace LocadoraVeiculos.WebApi.Shared
             //if (id != viewModel.Id)
             //    return BadRequest();
 
-            Entity parceiro = mapper.Map<Entity>(viewModel);
+            Entity entidade = mapper.Map<Entity>(viewModel);
 
-            var resultado = appService.EditarEntidade(id, parceiro);
+            var resultado = appService.EditarEntidade(id, entidade);
 
-            if (resultado == "Parceiro editado com sucesso")
+            if (resultado == "Entidade editado com sucesso")
             {
                 return Ok(viewModel);
             }
@@ -88,7 +88,7 @@ namespace LocadoraVeiculos.WebApi.Shared
 
             var resultado = appService.ExcluirEntidade(id);
 
-            if (resultado == "Parceiro excluído com sucesso")
+            if (resultado == "Entidade excluído com sucesso")
             {
                 return Ok(id);
             }
