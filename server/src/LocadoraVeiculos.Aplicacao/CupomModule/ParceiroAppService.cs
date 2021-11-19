@@ -1,18 +1,14 @@
-﻿using LocadoraVeiculos.Dominio.CupomModule;
+﻿using LocadoraVeiculos.Aplicacao.Shared;
+using LocadoraVeiculos.Dominio.CupomModule;
 using LocadoraVeiculos.Infra.Logging;
 using Serilog;
 using System.Collections.Generic;
 
 namespace LocadoraVeiculos.Aplicacao.CupomModule
 {
-    public interface IParceiroAppService
+    public interface IParceiroAppService : IAppService<Parceiro>
     {
-        List<Parceiro> SelecionarTodos();
-        string RegistrarNovoParceiro(Parceiro parceiro);
-        Parceiro SelecionarPorId(int id);
-        string ExcluirParceiro(int id);
-
-        string EditarParceiro(int id, Parceiro parceiro);
+        
     }
 
     public class ParceiroAppService : IParceiroAppService
@@ -46,7 +42,9 @@ namespace LocadoraVeiculos.Aplicacao.CupomModule
             this.parceiroRepository = parceiroRepository;
         }
 
-        public string EditarParceiro(int id, Parceiro parceiro)
+       
+
+        public string EditarEntidade(int id, Parceiro parceiro)
         {
             var cupomAlterado = parceiroRepository.Editar(id, parceiro);
 
@@ -59,7 +57,8 @@ namespace LocadoraVeiculos.Aplicacao.CupomModule
 
             return ParceiroEditado_ComSucesso;
         }
-        public string ExcluirParceiro(int id)
+
+        public string ExcluirEntidade(int id)
         {
             var parceiroExcluido = parceiroRepository.Excluir(id);
 
@@ -73,25 +72,24 @@ namespace LocadoraVeiculos.Aplicacao.CupomModule
             return ParceiroExcluido_ComSucesso;
         }
 
-        public string RegistrarNovoParceiro(Parceiro parceiro)
+        public string RegistrarNovaEntidade(Parceiro entidade)
         {
-            var resultado = parceiro.Validar();
+            var resultado = entidade.Validar();
 
             if (resultado != "ESTA_VALIDO")
                 return resultado;
 
-            var parceiroInserido = parceiroRepository.Inserir(parceiro);
+            var parceiroInserido = parceiroRepository.Inserir(entidade);
 
             if (parceiroInserido == false)
             {
-                Log.Logger.Aqui().Warning(ParceiroNaoRegistrado + IdParceiroFormat, parceiro.Id);
+                Log.Logger.Aqui().Warning(ParceiroNaoRegistrado + IdParceiroFormat, entidade.Id);
 
                 return ParceiroNaoRegistrado;
             }
 
             return ParceiroRegistrado_ComSucesso;
-
-        }
+        }    
 
         public Parceiro SelecionarPorId(int id)
         {

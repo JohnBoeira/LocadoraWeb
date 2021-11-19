@@ -27,7 +27,8 @@ namespace LocadoraVeiculos.WebApi.Controllers
 
             this.cupomRepository = cupomRepository;
             this.parceiroReporitoy = parceiroRepository;
-            this.cupomAppService = cupomAppService;       
+            this.cupomAppService = cupomAppService;
+            this.mapper = mapper;
         }
 
 

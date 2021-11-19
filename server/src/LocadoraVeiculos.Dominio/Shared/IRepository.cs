@@ -1,6 +1,6 @@
 ﻿namespace LocadoraVeiculos.Dominio.Shared
 {
-    public interface IRepository<TEntity, TKey>
+    public interface IRepository<TEntity, TKey> : IReadOnlyRepository<TEntity, TKey >
     {
         bool Inserir(TEntity entity);
 

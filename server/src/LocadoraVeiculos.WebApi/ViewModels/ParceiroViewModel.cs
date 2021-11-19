@@ -1,20 +1,21 @@
-﻿using System;
+﻿using LocadoraVeiculos.WebApi.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace LocadoraVeiculos.WebApi.ViewModels
 {
-    public class ParceiroListViewModel
+    public class ParceiroListViewModel : EntityViewModel
     {
-        public int Id { get; set; }
+
 
         public string Nome { get; set; }
     }
 
-    public class ParceiroDetailsViewModel
+    public class ParceiroDetailsViewModel : EntityViewModel
     {
-        public int Id { get; set; }
+     
 
         public string Nome { get; set; }
 
@@ -26,9 +27,8 @@ namespace LocadoraVeiculos.WebApi.ViewModels
         public string Nome { get; set; }
     }
 
-    public class ParceiroEditViewModel
+    public class ParceiroEditViewModel : EntityViewModel
     {
-        public int Id { get; set; }
 
         public string Nome { get; set; }
     }

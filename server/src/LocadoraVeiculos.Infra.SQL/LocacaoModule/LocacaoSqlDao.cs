@@ -762,6 +762,16 @@ namespace LocadoraVeiculos.Infra.SQL.LocacaoModule
             throw new NotImplementedException();
         }
 
+        public List<Locacao> SelecionarTodos()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Locacao SelecionarPorId(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }
