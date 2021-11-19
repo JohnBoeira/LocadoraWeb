@@ -9,7 +9,7 @@ export class HttpService<EntityListViewModel, EntityCreateViewModel extends Enti
     
     constructor(private http: HttpClient, private nomeDaEntidade : string) {
       
-     }
+    }
    
 
     private apiUrl = environment.urlBase + this.nomeDaEntidade;

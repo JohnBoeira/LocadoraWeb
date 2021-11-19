@@ -31,7 +31,7 @@ namespace LocadoraVeiculos.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSwaggerGen();
+            //services.AddSwaggerGen();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
@@ -48,8 +48,8 @@ namespace LocadoraVeiculos.WebApi
         {
             this.AutofacContainer = app.ApplicationServices.GetAutofacRoot();
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Employee API V1"); });
+            //app.UseSwagger();
+            //app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Employee API V1"); });
 
             if (env.IsDevelopment())
             {
