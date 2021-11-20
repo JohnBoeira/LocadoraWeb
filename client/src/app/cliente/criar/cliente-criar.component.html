@@ -1,0 +1,66 @@
+<div class="container main-container">
+   <h4>Cadastrar Cupom</h4>
+   <hr />
+   <form novalidate [formGroup]="cadastroForm" (ngSubmit)='adicionarCliente()'>
+       <div clas="form-group">
+           <label class="col-md-2 control-label" for="nome">Nome</label>
+           <div class="col-md-10">
+               <input class="form-control" id="nome" type="text" placeholder="Nome (requerido)"
+                   formControlName="nome" />
+           </div>
+
+           <label class="col-md-2 control-label" for="endereco">Endereço</label>
+           <div class="col-md-10">
+               <input class="form-control" id="endereco" type="text" placeholder="Endereço (requerido)"
+                   formControlName="endereco" />
+           </div>
+           
+           <label class="col-md-2 control-label" for="telefone">Telefone</label>
+           <div class="col-md-10">
+               <input class="form-control" id="telefone" type="text" placeholder="Telefone (requerido)"
+                   formControlName="telefone" />
+           </div>
+           
+           <label class="col-md-2 control-label" for="cnpj">CNPJ</label>
+           <div class="col-md-10">
+               
+                   <input class="form-control" id="cnpj" type="text" placeholder="CNPJ"
+                       formControlName="cnpj" />
+               
+           </div>
+
+           <label class="col-md-2 control-label" for="rg">RG</label>
+           <div class="col-md-10">
+               
+                   <input class="form-control" id="rg" type="text" placeholder="RG"
+                       formControlName="rg" />
+               
+           </div>
+
+           <label class="col-md-2 control-label" for="email">Email</label>
+           <div class="col-md-10">
+              
+                   <input class="form-control" id="email" type="text" placeholder="Email"
+                       formControlName="email" />
+               
+           </div>
+         
+           <label class="col-md-2 control-label" for="tipo">Tipo Pessoa</label>
+           <div class="col-md-10">
+               <select class="form-control" id="tipo" formControlName="tipo">
+                   <option value="">Selecione um Tipo</option>
+                   <option *ngFor="let chave of chaves" value={{chave}}>
+                       {{tipos[chave]}}
+                   </option>
+               </select>
+           </div>
+       </div>
+       <br>
+       <div class="form-group">
+           <div class="col-md-4 col-md-offset-2">
+               <span><button class="btn btn-success" id="registrar" type="submit">Registrar</button></span>
+               <span><button class="btn btn-danger" id="cancelar" (click)="cancelar()">Cancelar</button></span>
+           </div>
+       </div>
+   </form>
+</div>

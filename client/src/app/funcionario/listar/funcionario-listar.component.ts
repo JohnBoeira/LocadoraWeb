@@ -34,6 +34,10 @@ export class FuncionarioListarComponent implements OnInit {
       });
   }
 
+  formatarData(data: Date): string {
+    return new Date(data).toLocaleDateString();
+  }
+
   atualizarFuncionarios() {
     this.listaFuncionarios = this.listaFuncionariosTotal
       .map((Funcionario, i) => ({ u: i + 1, ...Funcionario }))

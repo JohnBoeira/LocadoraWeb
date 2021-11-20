@@ -16,11 +16,14 @@ export class FuncionarioCriarComponent implements OnInit {
 
   ngOnInit(): void {
     this.cadastroForm = new FormGroup({
-      nome: new FormControl(''),
-      usuario: new FormControl(''),
-      senha: new FormControl(''),
-      salario: new FormControl(''),
-      dataAdmissao: new FormControl('')
+      nome:       new FormControl(''),
+      endereco:   new FormControl(''),
+      telefone:   new FormControl(''),
+      cnpj :      new FormControl(''),
+      rg:         new FormControl(''),
+      cpf:        new FormControl(''),
+      tipoPessoa: new FormControl(''),
+      email:       new FormControl('')
     });
   }
 

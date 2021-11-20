@@ -23,6 +23,10 @@ import { FuncionarioCriarComponent } from './funcionario/criar/funcionario-criar
 import { FuncionarioListarComponent } from './funcionario/listar/funcionario-listar.component';
 import { FuncionarioEditarComponent } from './funcionario/editar/funcionario-editar.component';
 import { HttpFuncionarioService } from './funcionario/services/https-funcionario.service';
+import { ClienteCriarComponent } from './cliente/criar/cliente-criar.component';
+import { HttpClienteService } from './cliente/services/http-cliente.service';
+import { ClienteEditarComponent } from './cliente/editar/cliente-editar.component';
+import { ClienteListarComponent } from './cliente/listar/cliente-listar.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +44,9 @@ import { HttpFuncionarioService } from './funcionario/services/https-funcionario
     FuncionarioCriarComponent,
     FuncionarioListarComponent,
     FuncionarioEditarComponent,
+    ClienteCriarComponent,
+    ClienteEditarComponent,
+    ClienteListarComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +60,8 @@ import { HttpFuncionarioService } from './funcionario/services/https-funcionario
   providers: [
     { provide: 'IHttpParceiroServiceToken', useClass: HttpParceiroService },
     { provide: 'IHttpCupomServiceToken', useClass: HttpCupomService },
-    { provide: 'IHttpFuncionarioServiceToken', useClass: HttpFuncionarioService }
+    { provide: 'IHttpFuncionarioServiceToken', useClass: HttpFuncionarioService },
+    { provide: 'IHttpClienteServiceToken', useClass: HttpClienteService }
   ],
   bootstrap: [AppComponent]
 })

@@ -50,6 +50,10 @@ export class FuncionarioEditarComponent implements OnInit {
       });
   }
 
+  formatarData(data: Date): string {
+    return new Date(data).toLocaleDateString();
+  }
+
   cancelar(): void {
     this.router.navigate(['funcionario/listar']);
   }
@@ -62,7 +66,7 @@ export class FuncionarioEditarComponent implements OnInit {
       usuario: new FormControl(Funcionario.usuario),
       senha: new FormControl(Funcionario.senha),
       salario: new FormControl(Funcionario.salario),
-      dataAdmissao: new FormControl(Funcionario.dataAdmissao)
+      dataAdmissao: new FormControl(this.formatarData(Funcionario.dataAdmissao))
     });
 
    
