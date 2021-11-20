@@ -1,11 +1,14 @@
-﻿using LocadoraVeiculos.Dominio.ClienteModule;
+﻿using LocadoraVeiculos.Aplicacao.Shared;
+using LocadoraVeiculos.Dominio.ClienteModule;
+using LocadoraVeiculos.Infra.Logging;
+using Serilog;
 using System.Collections.Generic;
 
 namespace LocadoraVeiculos.Aplicacao.ClienteModule
 {
-    public interface IClienteAppService
+    public interface IClienteAppService : IAppService<Cliente>
     {
-        List<Cliente> SelecionarTodos(bool carregarCondutores = true);
+    
     }
 
     public class ClienteAppService : IClienteAppService
@@ -17,25 +20,84 @@ namespace LocadoraVeiculos.Aplicacao.ClienteModule
             this.clienteRepository = clienteRepository;
         }
 
-        public List<Cliente> SelecionarTodos(bool carregarCondutores = true)
-        {
-            return clienteRepository.SelecionarTodos(carregarCondutores);
-        }
+        private const string IdClienteFormat = "[Id do Cliente: {ClienteId}]";
 
-        public string InserirNovoCliente(Cliente cliente)
+        private const string ClienteRegistrado_ComSucesso =
+            "Entidade registrado com sucesso";
+
+        private const string ClienteNaoRegistrado =
+            "Cliente NÃO registrado. Tivemos problemas com a inserção no banco de dados ";
+
+        private const string ClienteNaoEditado =
+           "Entidade não editado. Tivemos problemas com a exclusão no banco de dados";
+
+        private const string ClienteEditado_ComSucesso =
+            "Entidade editado com sucesso";
+
+        private const string ClienteNaoExcluido =
+           "Entidade não excluído. Tivemos problemas com a exclusão no banco de dados";
+
+        private const string ClienteExcluido_ComSucesso =
+            "Entidade excluído com sucesso";
+
+
+        public string EditarEntidade(int id, Cliente cliente)
         {
-            if (clienteRepository.ExisteClienteComEsteCpf(cliente.CPF))
+            var clienteAlterado = clienteRepository.Editar(id, cliente);
+
+            if (clienteAlterado == false)
             {
-                return "Este CPF já está cadastrado";
+                Log.Logger.Aqui().Information(ClienteNaoEditado + IdClienteFormat, id);
+
+                return ClienteNaoEditado;
             }
 
-            string resultadoValidacao = cliente.Validar();
-
-            if (resultadoValidacao == "ESTA_VALIDO")
-                clienteRepository.Inserir(cliente);
-
-            return resultadoValidacao;
+            return ClienteEditado_ComSucesso;
         }
+
+        public string ExcluirEntidade(int id)
+        {
+            var clienteExcluido = clienteRepository.Excluir(id);
+
+            if (clienteExcluido == false)
+            {
+                Log.Logger.Aqui().Information(ClienteNaoExcluido + IdClienteFormat, id);
+
+                return ClienteNaoExcluido;
+            }
+
+            return ClienteExcluido_ComSucesso;
+        }
+
+        public string RegistrarNovaEntidade(Cliente cliente)
+        {
+            var resultado = cliente.Validar();
+
+            if (resultado != "ESTA_VALIDO")
+                return resultado;
+
+            var clienteInserido = clienteRepository.Inserir(cliente);
+
+            if (clienteInserido == false)
+            {
+                Log.Logger.Aqui().Warning(ClienteNaoRegistrado + IdClienteFormat, cliente.Id);
+
+                return ClienteNaoRegistrado;
+            }
+
+            return ClienteRegistrado_ComSucesso;
+        }
+
+        public Cliente SelecionarPorId(int id)
+        {
+            return clienteRepository.SelecionarPorId(id);
+        }
+
+        public List<Cliente> SelecionarTodos()
+        {
+            return clienteRepository.SelecionarTodos();
+        }
+
 
     }
 }
