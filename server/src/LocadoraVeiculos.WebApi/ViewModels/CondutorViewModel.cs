@@ -26,7 +26,7 @@ namespace LocadoraVeiculos.WebApi.ViewModels
         public int ClienteId { get;  set; }
     }
 
-    public class CondutorEditViewModel
+    public class CondutorEditViewModel : EntityViewModelBase
     {
         public string Nome { get; set; }
         public string Endereco { get; set; }
@@ -38,7 +38,7 @@ namespace LocadoraVeiculos.WebApi.ViewModels
         public int ClienteId { get; set; }
     }
 
-    public class CondutorDetailsViewModel
+    public class CondutorDetailsViewModel : EntityViewModelBase
     {
         public string Nome { get; set; }
         public string Endereco { get; set; }

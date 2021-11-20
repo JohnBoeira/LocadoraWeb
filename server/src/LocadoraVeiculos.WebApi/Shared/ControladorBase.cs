@@ -11,7 +11,7 @@ namespace LocadoraVeiculos.WebApi.Shared
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ControladorBase<EListVM, EDetailVM, ECreateVM, EEditVM,Entity > : ControllerBase
+    public class ControladorBase<EListVM, EDetailVM, ECreateVM, EEditVM, Entity > : ControllerBase
     {
         IRepository<Entity, int> repositoryBase;
         IAppService<Entity> appService;

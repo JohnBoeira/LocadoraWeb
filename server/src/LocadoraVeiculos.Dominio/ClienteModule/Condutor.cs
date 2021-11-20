@@ -30,14 +30,14 @@ namespace LocadoraVeiculos.Dominio.ClienteModule
         }
 
 
-        public string Nome { get; private set; }
-        public string Endereco { get; private set; }
-        public string Telefone { get; private set; }
-        public string Rg { get; private set; }
-        public string Cpf { get; private set; }
-        public string Cnh { get; private set; }
-        public DateTime DataValidadeCnh { get; private set; }
-        public int ClienteId { get; private set; }
+        public string Nome { get;  set; }
+        public string Endereco { get;  set; }
+        public string Telefone { get;  set; }
+        public string Rg { get;  set; }
+        public string Cpf { get;  set; }
+        public string Cnh { get;  set; }
+        public DateTime DataValidadeCnh { get;  set; }
+        public int ClienteId { get; set; }
         public virtual Cliente Cliente { get; set; }
 
 
@@ -69,7 +69,7 @@ namespace LocadoraVeiculos.Dominio.ClienteModule
             if (DataValidadeCnh < DateTime.Now)
                 resultadoValidacao = "A validade da cnh inserida está expirada, tente novamente";
 
-            if (string.IsNullOrEmpty(Cliente.ToString()))
+            if (ClienteId ==0)
                 resultadoValidacao = "O campo Cliente é obrigatório e não pode ser Vazio";
             if (resultadoValidacao == "")
                 resultadoValidacao = "ESTA_VALIDO";
