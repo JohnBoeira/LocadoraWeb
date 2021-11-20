@@ -1,10 +1,13 @@
 ﻿using Autofac;
 using AutoMapper;
+using LocadoraVeiculos.Aplicacao.ClienteModule;
 using LocadoraVeiculos.Aplicacao.CupomModule;
 using LocadoraVeiculos.Aplicacao.FuncionarioModule;
+using LocadoraVeiculos.Dominio.ClienteModule;
 using LocadoraVeiculos.Dominio.CupomModule;
 using LocadoraVeiculos.Dominio.FuncionarioModule;
 using LocadoraVeiculos.Infra.ORM;
+using LocadoraVeiculos.Infra.ORM.ClienteModule;
 using LocadoraVeiculos.Infra.ORM.CupomModule;
 using LocadoraVeiculos.Infra.ORM.FuncionarioModule;
 using System;
@@ -29,7 +32,8 @@ namespace LocadoraVeiculos.WebApi.Config.AutofacConfig
             builder.RegisterType<FuncionarioOrmDao>().As<IFuncionarioRepository>();
             builder.RegisterType<FuncionarioAppService>().As<IFuncionarioAppService>();
 
-
+            builder.RegisterType<ClienteOrmDao>().As<IClienteRepository>();
+            builder.RegisterType<ClienteAppService>().As<IClienteAppService>();
 
             builder.RegisterType<Mapper>().As<IMapper>();
 

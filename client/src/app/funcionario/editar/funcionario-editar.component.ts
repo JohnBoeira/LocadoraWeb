@@ -57,12 +57,12 @@ export class FuncionarioEditarComponent implements OnInit {
   carregarFormulario(Funcionario: FuncionarioDetailsViewModel) {
 
     this.cadastroForm = new FormGroup({
-      id: new FormControl(''),
-      nome: new FormControl(''),
-      usuario: new FormControl(''),
-      senha: new FormControl(''),
-      salario: new FormControl(''),
-      dataAdmissao: new FormControl('')
+      id: new FormControl(Funcionario.id),
+      nome: new FormControl(Funcionario.nome),
+      usuario: new FormControl(Funcionario.usuario),
+      senha: new FormControl(Funcionario.senha),
+      salario: new FormControl(Funcionario.salario),
+      dataAdmissao: new FormControl(Funcionario.dataAdmissao)
     });
 
    
