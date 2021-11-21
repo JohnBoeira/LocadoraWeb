@@ -1,8 +1,8 @@
 import { environment } from "src/environments/environment";
-import { EntityViewModel } from "./viewModels/entityViewModel";
+import { EntityViewModel } from "../viewModels/entityViewModel";
 import { HttpClient } from '@angular/common/http';
 import { Observable } from "rxjs";
-import { IHttpService } from "./interfaces/IHttpService";
+import { IHttpService } from "../interfaces/IHttpService";
 
 export class HttpService<EntityListViewModel, EntityCreateViewModel extends EntityViewModel, EntityDetailsViewModel extends EntityViewModel, EntityEditViewModel extends EntityViewModel> implements IHttpService<EntityListViewModel, EntityCreateViewModel, EntityDetailsViewModel, EntityEditViewModel>
 {

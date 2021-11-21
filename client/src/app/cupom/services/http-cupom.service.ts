@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpService } from 'src/app/shared/http-service';
+import { HttpService } from 'src/app/shared/services/http-service';
 import { IHttpCupomService } from 'src/app/shared/interfaces/IHttpCupomService';
 import { CupomCreateViewModel } from 'src/app/shared/viewModels/cupom/CupomCreateViewModel';
 import { CupomDetailsViewModel } from 'src/app/shared/viewModels/cupom/CupomDetailsViewModel';

@@ -7,6 +7,7 @@ import { IHttpParceiroService } from 'src/app/shared/interfaces/IHttpParceiroSer
 import { ParceiroListViewModel } from 'src/app/shared/viewModels/parceiro/ParceiroListViewModel';
 import { CupomCreateViewModel } from 'src/app/shared/viewModels/cupom/CupomCreateViewModel';
 import { IHttpCupomService } from 'src/app/shared/interfaces/IHttpCupomService';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
   selector: 'app-cupom-criar',
@@ -25,7 +26,7 @@ export class CupomCriarComponent implements OnInit {
 
   constructor(@Inject('IHttpCupomServiceToken') private servicoCupom: IHttpCupomService,
     @Inject('IHttpParceiroServiceToken') private servicoParceiro: IHttpParceiroService,
-    private router: Router) { }
+    private router: Router, private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.chaves = Object.keys(this.tipos).filter(t => !isNaN(Number(t)));
@@ -46,9 +47,19 @@ export class CupomCriarComponent implements OnInit {
     this.cupom = Object.assign({}, this.cupom, this.cadastroForm.value);
 
     this.servicoCupom.adicionarEntidade(this.cupom)
-      .subscribe(() => {
-        this.router.navigate(['cupom/listar']);
-      });
+      .subscribe(
+        cupom => {
+          this.toastService.show('Cupom ' + cupom.nome + ' adicionado com sucesso!',
+            { classname: 'bg-success text-light', delay: 4000 });
+          setTimeout(() => {
+            this.router.navigate(['cupom/listar']);
+          }, 5000);
+        },
+        erro => {
+          this.toastService.show('Erro ao adicionar cupom: ' + erro.error.errors["Nome"].toString(),
+            { classname: 'bg-danger text-light', delay: 4000 });
+        }
+      );
   }
 
   carregarParceiros(): void {

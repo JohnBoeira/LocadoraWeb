@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { HttpService } from "src/app/shared/http-service";
+import { HttpService } from "src/app/shared/services/http-service";
 import { IHttpClienteService } from "src/app/shared/interfaces/IHttpsClienteService";
 import { ClienteCreateViewModel } from "src/app/shared/viewModels/Cliente/ClienteCreateViewModel";
 import { ClienteDetailsViewModel } from "src/app/shared/viewModels/Cliente/ClienteDetails";

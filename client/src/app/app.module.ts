@@ -27,6 +27,7 @@ import { ClienteCriarComponent } from './cliente/criar/cliente-criar.component';
 import { HttpClienteService } from './cliente/services/http-cliente.service';
 import { ClienteEditarComponent } from './cliente/editar/cliente-editar.component';
 import { ClienteListarComponent } from './cliente/listar/cliente-listar.component';
+import { ToastContainerComponent } from './shared/components/toast-container.componet';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ClienteListarComponent } from './cliente/listar/cliente-listar.componen
     FuncionarioEditarComponent,
     ClienteCriarComponent,
     ClienteEditarComponent,
-    ClienteListarComponent
+    ClienteListarComponent,
+    ToastContainerComponent
   ],
   imports: [
     BrowserModule,

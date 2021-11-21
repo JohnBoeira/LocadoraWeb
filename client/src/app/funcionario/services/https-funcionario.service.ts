@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { HttpService } from "src/app/shared/http-service";
+import { HttpService } from "src/app/shared/services/http-service";
 import { FuncionarioCreateViewModel } from "src/app/shared/viewModels/funcionario/FuncionarioCreateViewModel";
 import { FuncionarioDetailsViewModel } from "src/app/shared/viewModels/funcionario/FuncionarioDetailsViewModel";
 import { FuncionarioEditViewModel } from "src/app/shared/viewModels/funcionario/FuncionarioEditViewModel";

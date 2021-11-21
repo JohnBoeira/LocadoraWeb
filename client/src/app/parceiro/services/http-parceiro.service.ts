@@ -2,7 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpService } from 'src/app/shared/http-service';
+import { HttpService } from 'src/app/shared/services/http-service';
 import { IHttpParceiroService } from 'src/app/shared/interfaces/IHttpParceiroService';
 import { ParceiroCreateViewModel } from 'src/app/shared/viewModels/parceiro/ParceiroCreateViewModel';
 import { ParceiroDetailsViewModel } from 'src/app/shared/viewModels/parceiro/ParceiroDetailsViewModel';
