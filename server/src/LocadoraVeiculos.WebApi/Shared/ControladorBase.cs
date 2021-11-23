@@ -17,7 +17,8 @@ namespace LocadoraVeiculos.WebApi.Shared
         IAppService<Entity> appService;
         IMapper mapper;
         public ControladorBase(IRepository<Entity, int> repositoryBase, IAppService<Entity> appService, IMapper mapper)
-        {
+        { 
+
             this.repositoryBase = repositoryBase;
             this.appService = appService;
             this.mapper = mapper;
