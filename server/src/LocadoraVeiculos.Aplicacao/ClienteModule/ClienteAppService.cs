@@ -71,10 +71,12 @@ namespace LocadoraVeiculos.Aplicacao.ClienteModule
 
         public string RegistrarNovaEntidade(Cliente cliente)
         {
-            var resultado = cliente.Validar();
+            ClienteValidator validations = new ClienteValidator();
 
-            if (resultado != "ESTA_VALIDO")
-                return resultado;
+            var resultado = validations.Validate(cliente);
+
+            //if (!resultado.IsValid)
+            //    return resultado;
 
             var clienteInserido = clienteRepository.Inserir(cliente);
 
