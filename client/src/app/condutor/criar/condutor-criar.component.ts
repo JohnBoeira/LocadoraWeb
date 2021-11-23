@@ -64,6 +64,7 @@ export class CondutorCriarComponent implements OnInit {
   }
 
   carregarClientes(): void {
+    
     this.servicoCliente.obterEntidades()
       .subscribe(Clientes => {
         this.listaClientes = Clientes;
