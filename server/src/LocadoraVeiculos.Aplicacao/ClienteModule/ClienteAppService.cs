@@ -16,6 +16,7 @@ namespace LocadoraVeiculos.Aplicacao.ClienteModule
 
         private readonly IClienteRepository clienteRepository;
 
+
         public ClienteAppService(IClienteRepository clienteRepository)
         {
             this.clienteRepository = clienteRepository;
