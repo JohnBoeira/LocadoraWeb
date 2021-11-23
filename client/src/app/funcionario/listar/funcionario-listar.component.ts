@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IHttpFuncionarioService } from 'src/app/shared/interfaces/IHttpFuncionarioService';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { FuncionarioListViewModel } from 'src/app/shared/viewModels/funcionario/FuncionarioListViewModel';
 
 @Component({
@@ -19,7 +20,7 @@ export class FuncionarioListarComponent implements OnInit {
   pageSize = 5;
   collectionSize = 0;
 
-  constructor(private router: Router, @Inject('IHttpFuncionarioServiceToken') private servicoFuncionario: IHttpFuncionarioService, private servicoModal: NgbModal) {
+  constructor(private router: Router, @Inject('IHttpFuncionarioServiceToken') private servicoFuncionario: IHttpFuncionarioService, private servicoModal: NgbModal, private toastService: ToastService) {
   }
 
   ngOnInit(): void {
@@ -50,11 +51,22 @@ export class FuncionarioListarComponent implements OnInit {
     this.servicoModal.open(modal).result.then((resultado) => {
       if (resultado == 'Excluir') {
         this.servicoFuncionario.excluirEntidade(this.funcionarioSelecionado)
-          .subscribe(() => {
-            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-              this.router.navigate(['Funcionario/listar']);
-            });
-          });
+          .subscribe(
+            () => {
+              this.toastService.show('Funcionário removido com sucesso!',
+                { classname: 'bg-success text-light', delay: 4000 });
+  
+              setTimeout(() => {
+                this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+                  this.router.navigate(['funcionario/listar']);
+                });
+              }, 2000);
+            },
+            erro => {
+              this.toastService.show('Erro ao remover funcionario: ' + erro.error.errors["Nome"].toString(),
+                { classname: 'bg-danger text-light', delay: 5000 });
+            }
+          );
       }
     }).catch(erro => erro);
   }

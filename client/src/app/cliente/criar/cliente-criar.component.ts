@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IHttpClienteService } from 'src/app/shared/interfaces/IHttpsClienteService';
 import { ClienteType } from 'src/app/shared/models/ClienteEnum';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 import { ClienteCreateViewModel } from 'src/app/shared/viewModels/Cliente/ClienteCreateViewModel';
 
@@ -18,7 +19,7 @@ export class ClienteCriarComponent implements OnInit {
   tipos = ClienteType;
   chaves: any[];
 
-  constructor(@Inject('IHttpClienteServiceToken') private servicoCliente: IHttpClienteService, private router: Router) { }
+  constructor(@Inject('IHttpClienteServiceToken') private servicoCliente: IHttpClienteService, private router: Router, private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.chaves = Object.keys(this.tipos).filter(t => !isNaN(Number(t)));
@@ -40,9 +41,19 @@ export class ClienteCriarComponent implements OnInit {
     this.clienteVM = Object.assign({}, this.clienteVM, this.cadastroForm.value);
 
     this.servicoCliente.adicionarEntidade(this.clienteVM)
-      .subscribe(() => {
-        this.router.navigate(['cliente/listar']);
-      });
+    .subscribe(
+      cliente => {
+        this.toastService.show('Cliente ' + cliente.nome + ' adicionado com sucesso!',
+          { classname: 'bg-success text-light', delay: 4000 });
+        setTimeout(() => {
+          this.router.navigate(['cliente/listar']);
+        }, 5000);
+      },
+      erro => {
+        this.toastService.show('Erro ao adicionar cliente: ' + erro.error.errors["Nome"].toString(),
+          { classname: 'bg-danger text-light', delay: 4000 });
+      }
+    );
   }
 
   cancelar(): void {

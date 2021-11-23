@@ -82,7 +82,7 @@ namespace LocadoraVeiculos.Infra.ORM
             }
             catch (Exception)
             {
-                throw;
+                return false;
             }
 
             return true;
