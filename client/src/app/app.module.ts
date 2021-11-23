@@ -28,6 +28,11 @@ import { HttpClienteService } from './cliente/services/http-cliente.service';
 import { ClienteEditarComponent } from './cliente/editar/cliente-editar.component';
 import { ClienteListarComponent } from './cliente/listar/cliente-listar.component';
 import { ToastContainerComponent } from './shared/components/toast-container.componet';
+import { CondutorListarComponent } from './condutor/listar/condutor-listar.component';
+import { CondutorEditarComponent } from './condutor/editar/condutor-editar.component';
+import { HttpCondutorService } from './condutor/services/http-condutor.service';
+import { CondutorCriarComponent } from './condutor/criar/condutor-criar.component';
+
 
 @NgModule({
   declarations: [
@@ -48,7 +53,10 @@ import { ToastContainerComponent } from './shared/components/toast-container.com
     ClienteCriarComponent,
     ClienteEditarComponent,
     ClienteListarComponent,
-    ToastContainerComponent
+    ToastContainerComponent,
+    CondutorListarComponent,
+    CondutorEditarComponent,
+    CondutorCriarComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +71,8 @@ import { ToastContainerComponent } from './shared/components/toast-container.com
     { provide: 'IHttpParceiroServiceToken', useClass: HttpParceiroService },
     { provide: 'IHttpCupomServiceToken', useClass: HttpCupomService },
     { provide: 'IHttpFuncionarioServiceToken', useClass: HttpFuncionarioService },
-    { provide: 'IHttpClienteServiceToken', useClass: HttpClienteService }
+    { provide: 'IHttpClienteServiceToken', useClass: HttpClienteService },
+    { provide: 'IHttpCondutorServiceToken', useClass: HttpCondutorService }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,62 @@
+<div class="container main-container">
+    <h4>Lista Condutor</h4>
+    <hr />
+    <div style="float: right;">
+        <button class="btn btn-dark" [routerLink]="['/condutor/criar']">Cadastrar</button>
+        <button class="btn btn-dark" [routerLink]="['/condutor/editar', condutorSelecionado]"
+            [disabled]="!condutorSelecionado">Editar</button>
+        <button class="btn btn-dark" (click)="abrirConfirmacao(modalExclusao)"
+            [disabled]="!condutorSelecionado">Excluir</button>
+    </div>
+    <br>
+    <br>
+    <table class="table table-striped" data-click-to-select="true">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Id</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Endereço</th>
+                <th scope="col">Telefone</th>
+                <th scope="col">Nome Cliente</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let condutor of listaCondutor">
+                <td>
+                    <div class="custom-control">
+                        <input type="radio" name="flexRadioDefault" class="custom-control-input" id="customRadio"
+                            value="{{ condutor.id }}" [(ngModel)]="condutorSelecionado">
+                    </div>
+                </td>
+                <td>{{ condutor.id }}</td>
+                <td>{{ condutor.nome }}</td>
+                <td>{{ condutor.endereco }}</td>
+                <td>{{ condutor.telefone }}</td>
+                <td>{{ condutor.clienteNome }}</td>
+                
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between p-2">
+        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+            (pageChange)="atualizarCondutor()">
+        </ngb-pagination>
+    </div>
+</div>
+
+<ng-template #modalExclusao let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Excluir condutor</h4>
+    </div>
+    <div class="modal-body">
+        Deseja realmente excluir esse condutor?
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="modal.close('Excluir')">Excluir</button>
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Cancelar')">Cancelar</button>
+    </div>
+</ng-template>
+
+<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>

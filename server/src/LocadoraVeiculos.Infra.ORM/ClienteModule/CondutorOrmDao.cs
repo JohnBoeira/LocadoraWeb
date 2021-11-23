@@ -1,6 +1,8 @@
 ﻿using LocadoraVeiculos.Dominio.ClienteModule;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LocadoraVeiculos.Infra.ORM.ClienteModule
 {
@@ -10,9 +12,18 @@ namespace LocadoraVeiculos.Infra.ORM.ClienteModule
         {
         }
 
-        public List<Condutor> SelecionarTodos(bool carregarClientes = false)
+        public override List<Condutor> SelecionarTodos()
         {
-            throw new NotImplementedException();
+            return dbSet
+                    .Include(x => x.Cliente)
+                    .ToList();
+        }
+
+        public List<Condutor> SelecionarTodos(bool carregarClientes = true)
+        {
+            return SelecionarTodos();
+
+           
         }
     }
 }
