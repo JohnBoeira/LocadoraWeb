@@ -2,6 +2,7 @@
 using LocadoraVeiculos.Aplicacao.Shared;
 using LocadoraVeiculos.Dominio.Shared;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +16,15 @@ namespace LocadoraVeiculos.WebApi.Shared
     {
         IRepository<Entity, int> repositoryBase;
         IAppService<Entity> appService;
+        INotificador notificador;
         IMapper mapper;
-        public ControladorBase(IRepository<Entity, int> repositoryBase, IAppService<Entity> appService, IMapper mapper)
-        { 
-
+        public ControladorBase(IRepository<Entity, int> repositoryBase, IAppService<Entity> appService, IMapper mapper, INotificador notificador)
+        {
+            this.notificador = notificador;
             this.repositoryBase = repositoryBase;
             this.appService = appService;
             this.mapper = mapper;
+            this.notificador = notificador;
         }
 
         [HttpGet]
@@ -51,16 +54,38 @@ namespace LocadoraVeiculos.WebApi.Shared
         [HttpPost]
         public ActionResult<ECreateVM> Create(ECreateVM viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                IEnumerable<ModelError> erros = ModelState.Values.SelectMany(x => x.Errors);
+
+                foreach (var erro in erros)
+                {
+                    var erroMsg = erro.Exception == null ? erro.ErrorMessage : erro.Exception.Message;
+
+                    notificador.RegistrarNotificacao(erroMsg);
+                }
+
+                return BadRequest(new
+                {
+                    sucess = false,
+                    erros = notificador.ObterNotificacoes()
+                });
+            }
+
             Entity entidade = mapper.Map<Entity>(viewModel);
 
             var resultado = appService.RegistrarNovaEntidade(entidade);
 
-            if (resultado == "Entidade registrado com sucesso")
+            if (resultado == false)
             {
-                return CreatedAtAction(nameof(Create), viewModel);
+                return BadRequest(new
+                {
+                    success = false,
+                    errors = notificador.ObterNotificacoes()
+                });
             }
 
-            return NoContent();
+            return CreatedAtAction(nameof(Create), viewModel);
         }
 
         [HttpPut("{id}")]
@@ -68,17 +93,38 @@ namespace LocadoraVeiculos.WebApi.Shared
         {
             //if (id != viewModel.Id)
             //    return BadRequest();
+            if (!ModelState.IsValid)
+            {
+                IEnumerable<ModelError> erros = ModelState.Values.SelectMany(x => x.Errors);
+
+                foreach (var erro in erros)
+                {
+                    var erroMsg = erro.Exception == null ? erro.ErrorMessage : erro.Exception.Message;
+
+                    notificador.RegistrarNotificacao(erroMsg);
+                }
+
+                return BadRequest(new
+                {
+                    sucess = false,
+                    erros = notificador.ObterNotificacoes()
+                });
+            }
 
             Entity entidade = mapper.Map<Entity>(viewModel);
 
             var resultado = appService.EditarEntidade(id, entidade);
 
-            if (resultado == "Entidade editado com sucesso")
+            if (resultado == false)
             {
-                return Ok(viewModel);
+                return BadRequest(new
+                {
+                    success = false,
+                    errors = notificador.ObterNotificacoes()
+                });
             }
 
-            return NoContent();
+            return Ok(viewModel);
         }
 
         [HttpDelete("{id:int}")]
@@ -89,12 +135,16 @@ namespace LocadoraVeiculos.WebApi.Shared
 
             var resultado = appService.ExcluirEntidade(id);
 
-            if (resultado == "Entidade excluído com sucesso")
+            if (resultado == false)
             {
-                return Ok(id);
+                return BadRequest(new
+                {
+                    success = false,
+                    errors = notificador.ObterNotificacoes()
+                });
             }
 
-            return NoContent();
+            return Ok(id);
         }
     }
 }

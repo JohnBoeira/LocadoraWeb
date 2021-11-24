@@ -1,5 +1,6 @@
 ﻿using LocadoraVeiculos.Aplicacao.Shared;
 using LocadoraVeiculos.Dominio.ClienteModule;
+using LocadoraVeiculos.Dominio.Shared;
 using LocadoraVeiculos.Infra.Logging;
 using Serilog;
 using System;
@@ -18,9 +19,11 @@ namespace LocadoraVeiculos.Aplicacao.CondutorModule
     public class CondutorAppService : ICondutorAppService
     {
         private readonly ICondutorRepository condutorRepository;
+        private readonly INotificador notificador;
 
-        public CondutorAppService(ICondutorRepository condutorRepository)
+        public CondutorAppService(ICondutorRepository condutorRepository, INotificador notificador)
         {
+            this.notificador = notificador;
             this.condutorRepository = condutorRepository;
         }
 
@@ -45,7 +48,7 @@ namespace LocadoraVeiculos.Aplicacao.CondutorModule
             "Entidade excluído com sucesso";
 
 
-        public string EditarEntidade(int id, Condutor condutor)
+        public bool EditarEntidade(int id, Condutor condutor)
         {
             var condutorAlterado = condutorRepository.Editar(id, condutor);
 
@@ -53,13 +56,13 @@ namespace LocadoraVeiculos.Aplicacao.CondutorModule
             {
                 Log.Logger.Aqui().Information(CondutorNaoEditado + IdCondutorFormat, id);
 
-                return CondutorNaoEditado;
+                return false;
             }
 
-            return CondutorEditado_ComSucesso;
+            return true;
         }
 
-        public string ExcluirEntidade(int id)
+        public bool ExcluirEntidade(int id)
         {
             var condutorExcluido = condutorRepository.Excluir(id);
 
@@ -67,18 +70,26 @@ namespace LocadoraVeiculos.Aplicacao.CondutorModule
             {
                 Log.Logger.Aqui().Information(CondutorNaoExcluido + IdCondutorFormat, id);
 
-                return CondutorNaoExcluido;
+                return false;
             }
 
-            return CondutorExcluido_ComSucesso;
+            return true;
         }
 
-        public string RegistrarNovaEntidade(Condutor condutor)
+        public bool RegistrarNovaEntidade(Condutor condutor)
         {
-            var resultado = condutor.Validar();
+            var validator = new CondutorValidator();
 
-            if (resultado != "ESTA_VALIDO")
-                return resultado;
+            var resultado = validator.Validate(condutor);
+
+            if (!resultado.IsValid) {
+                foreach (var erro in resultado.Errors)
+                {
+                    notificador.RegistrarNotificacao(erro.ErrorMessage);
+                }
+                return false;
+            }
+              
 
             var condutorInserido = condutorRepository.Inserir(condutor);
 
@@ -86,10 +97,10 @@ namespace LocadoraVeiculos.Aplicacao.CondutorModule
             {
                 Log.Logger.Aqui().Warning(CondutorNaoRegistrado + IdCondutorFormat, condutor.Id);
 
-                return CondutorNaoRegistrado;
+                return false ;
             }
 
-            return CondutorRegistrado_ComSucesso;
+            return true;
         }
 
         public Condutor SelecionarPorId(int id)

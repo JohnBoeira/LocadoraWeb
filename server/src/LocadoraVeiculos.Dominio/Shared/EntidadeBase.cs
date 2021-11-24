@@ -6,7 +6,7 @@ namespace LocadoraVeiculos.Dominio
     {
         public TKey Id { get; set; }
 
-        public abstract string Validar();
+        //public abstract string Validar();
 
         protected string QuebraDeLinha(string resultadoValidacao)
         {

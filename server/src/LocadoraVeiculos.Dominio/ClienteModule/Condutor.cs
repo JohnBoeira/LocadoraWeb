@@ -41,42 +41,6 @@ namespace LocadoraVeiculos.Dominio.ClienteModule
         public virtual Cliente Cliente { get; set; }
 
 
-        public override string Validar()
-        {
-            string resultadoValidacao = "";
-
-            if (string.IsNullOrEmpty(Nome))
-                resultadoValidacao = "O atributo nome é obrigatório e não pode ser vazio.";
-
-            if (string.IsNullOrEmpty(Endereco))
-                resultadoValidacao = "O atributo endereço é obrigatório e não pode ser vazio.";
-
-            if (Telefone.Length < 9)
-                resultadoValidacao = "O atributo Telefone está invalido.";
-
-            if (string.IsNullOrEmpty(Rg))
-                resultadoValidacao = "O atributo Numero do Rg é obrigatório e não pode ser vazio.";
-
-            if (string.IsNullOrEmpty(Cpf))
-                resultadoValidacao = "O atributo Numero do Cpf é obrigatório e não pode ser vazio.";
-
-            if (string.IsNullOrEmpty(Cnh))
-                resultadoValidacao = "O atributo Numero da CNH é obrigatório e não pode ser vazio.";
-
-            if (DataValidadeCnh == DateTime.MinValue)
-                resultadoValidacao = "O campo Validade da CNH é obrigatório";
-
-            if (DataValidadeCnh < DateTime.Now)
-                resultadoValidacao = "A validade da cnh inserida está expirada, tente novamente";
-
-            if (ClienteId ==0)
-                resultadoValidacao = "O campo Cliente é obrigatório e não pode ser Vazio";
-            if (resultadoValidacao == "")
-                resultadoValidacao = "ESTA_VALIDO";
-
-            return resultadoValidacao;
-        }
-
         public override bool Equals(object obj)
         {
             return Equals(obj as Condutor);

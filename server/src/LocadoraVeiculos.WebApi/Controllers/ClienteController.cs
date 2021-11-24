@@ -14,7 +14,7 @@ namespace LocadoraVeiculos.WebApi.Controllers
 {
     public class ClienteController : ControladorBase<ClienteListViewModel, ClienteDetailsViewModel, ClienteCreateViewModel, ClienteEditViewModel, Cliente>
     {
-        public ClienteController(IClienteRepository clienteRepository, IClienteAppService clienteAppService, IMapper mapper) : base(clienteRepository, clienteAppService, mapper)
+        public ClienteController(IClienteRepository clienteRepository, IClienteAppService clienteAppService, IMapper mapper, INotificador notificador) : base(clienteRepository, clienteAppService, mapper, notificador)
         {
         }
     }

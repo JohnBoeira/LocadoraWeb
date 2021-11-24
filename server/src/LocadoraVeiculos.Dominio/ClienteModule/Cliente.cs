@@ -38,25 +38,6 @@ namespace LocadoraVeiculos.Dominio.ClienteModule
         public virtual string Email { get; set; }
         public virtual ICollection<Condutor> Condutores { get; set; }
 
-        public override string Validar()
-        {
-            string resultadoValidacao = "";
-
-            if (string.IsNullOrEmpty(Nome))
-                resultadoValidacao = "O nome é obrigatório e não pode ser vazio.";
-
-            if (string.IsNullOrEmpty(Endereco))
-                resultadoValidacao = "O endereço é obrigatório e não pode ser vazio.";
-
-            if (Telefone.Length < 9)
-                resultadoValidacao = "O Telefone está invalido.";
-
-            if (resultadoValidacao == "")
-                resultadoValidacao = "ESTA_VALIDO";
-
-            return resultadoValidacao;
-        }
-
         public override bool Equals(object obj)
         {
             return Equals(obj as Cliente);
@@ -101,5 +82,7 @@ namespace LocadoraVeiculos.Dominio.ClienteModule
                 Condutores.Add(item);
             }
         }
+
+       
     }
 }

@@ -1,5 +1,6 @@
 ﻿using LocadoraVeiculos.Aplicacao.Shared;
 using LocadoraVeiculos.Dominio.ClienteModule;
+using LocadoraVeiculos.Dominio.Shared;
 using LocadoraVeiculos.Infra.Logging;
 using Serilog;
 using System.Collections.Generic;
@@ -15,10 +16,11 @@ namespace LocadoraVeiculos.Aplicacao.ClienteModule
     { 
 
         private readonly IClienteRepository clienteRepository;
+        private readonly INotificador notificador;
 
-
-        public ClienteAppService(IClienteRepository clienteRepository)
+        public ClienteAppService(IClienteRepository clienteRepository, INotificador notificador)
         {
+            this.notificador = notificador;
             this.clienteRepository = clienteRepository;
         }
 
@@ -43,7 +45,7 @@ namespace LocadoraVeiculos.Aplicacao.ClienteModule
             "Entidade excluído com sucesso";
 
 
-        public string EditarEntidade(int id, Cliente cliente)
+        public bool EditarEntidade(int id, Cliente cliente)
         {
             var clienteAlterado = clienteRepository.Editar(id, cliente);
 
@@ -51,13 +53,13 @@ namespace LocadoraVeiculos.Aplicacao.ClienteModule
             {
                 Log.Logger.Aqui().Information(ClienteNaoEditado + IdClienteFormat, id);
 
-                return ClienteNaoEditado;
+                return false;
             }
 
-            return ClienteEditado_ComSucesso;
+            return true;
         }
 
-        public string ExcluirEntidade(int id)
+        public bool ExcluirEntidade(int id)
         {
             var clienteExcluido = clienteRepository.Excluir(id);
 
@@ -65,20 +67,27 @@ namespace LocadoraVeiculos.Aplicacao.ClienteModule
             {
                 Log.Logger.Aqui().Information(ClienteNaoExcluido + IdClienteFormat, id);
 
-                return ClienteNaoExcluido;
+                return false;
             }
 
-            return ClienteExcluido_ComSucesso;
+            return true;
         }
 
-        public string RegistrarNovaEntidade(Cliente cliente)
+        public bool RegistrarNovaEntidade(Cliente cliente)
         {
             ClienteValidator validations = new ClienteValidator();
 
             var resultado = validations.Validate(cliente);
 
-            //if (!resultado.IsValid)
-            //    return resultado;
+            if (!resultado.IsValid)
+            {
+                foreach (var erro in resultado.Errors)
+                {
+                    notificador.RegistrarNotificacao(erro.ErrorMessage);
+                }
+                return false;
+            }
+               
 
             var clienteInserido = clienteRepository.Inserir(cliente);
 
@@ -86,10 +95,10 @@ namespace LocadoraVeiculos.Aplicacao.ClienteModule
             {
                 Log.Logger.Aqui().Warning(ClienteNaoRegistrado + IdClienteFormat, cliente.Id);
 
-                return ClienteNaoRegistrado;
+                return false;
             }
 
-            return ClienteRegistrado_ComSucesso;
+            return true;
         }
 
         public Cliente SelecionarPorId(int id)

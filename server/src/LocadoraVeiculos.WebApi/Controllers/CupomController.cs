@@ -20,7 +20,7 @@ namespace LocadoraVeiculos.WebApi.Controllers
     [ApiController]
     public class CupomController : ControladorBase<CupomListViewModel, CupomDetailsViewModel, CupomCreateViewModel, CupomEditViewModel, Cupom>
     {
-        public CupomController(ICupomRepository cupomRepository, ICupomAppService cupomAppService, IMapper mapper) : base(cupomRepository, cupomAppService, mapper)
+        public CupomController(ICupomRepository cupomRepository, ICupomAppService cupomAppService, IMapper mapper, INotificador notificador) : base(cupomRepository, cupomAppService, mapper, notificador)
         {
         }
     }

@@ -44,7 +44,7 @@ namespace LocadoraVeiculos.Aplicacao.CupomModule
 
        
 
-        public string EditarEntidade(int id, Parceiro parceiro)
+        public bool EditarEntidade(int id, Parceiro parceiro)
         {
             var cupomAlterado = parceiroRepository.Editar(id, parceiro);
 
@@ -52,13 +52,13 @@ namespace LocadoraVeiculos.Aplicacao.CupomModule
             {
                 Log.Logger.Aqui().Information(ParceiroNaoEditado + IdParceiroFormat, id);
 
-                return ParceiroNaoEditado;
+                return false;
             }
 
-            return ParceiroEditado_ComSucesso;
+            return true;
         }
 
-        public string ExcluirEntidade(int id)
+        public bool ExcluirEntidade(int id)
         {
             var parceiroExcluido = parceiroRepository.Excluir(id);
 
@@ -66,18 +66,18 @@ namespace LocadoraVeiculos.Aplicacao.CupomModule
             {
                 Log.Logger.Aqui().Information(ParceiroNaoExcluido + IdParceiroFormat, id);
 
-                return ParceiroNaoExcluido;
+                return false;
             }
 
-            return ParceiroExcluido_ComSucesso;
+            return true;
         }
 
-        public string RegistrarNovaEntidade(Parceiro entidade)
+        public bool RegistrarNovaEntidade(Parceiro entidade)
         {
             var resultado = entidade.Validar();
 
             if (resultado != "ESTA_VALIDO")
-                return resultado;
+                return false;
 
             var parceiroInserido = parceiroRepository.Inserir(entidade);
 
@@ -85,10 +85,10 @@ namespace LocadoraVeiculos.Aplicacao.CupomModule
             {
                 Log.Logger.Aqui().Warning(ParceiroNaoRegistrado + IdParceiroFormat, entidade.Id);
 
-                return ParceiroNaoRegistrado;
+                return false;
             }
 
-            return ParceiroRegistrado_ComSucesso;
+            return true;
         }    
 
         public Parceiro SelecionarPorId(int id)

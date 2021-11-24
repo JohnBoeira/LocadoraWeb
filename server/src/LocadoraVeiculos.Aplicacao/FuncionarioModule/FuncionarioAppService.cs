@@ -45,7 +45,7 @@ namespace LocadoraVeiculos.Aplicacao.FuncionarioModule
             "Entidade excluído com sucesso";
 
 
-        public string EditarEntidade(int id, Funcionario funcionario)
+        public bool EditarEntidade(int id, Funcionario funcionario)
         {
             var funcionarioAlterado = funcionarioRepository.Editar(id, funcionario);
 
@@ -53,13 +53,13 @@ namespace LocadoraVeiculos.Aplicacao.FuncionarioModule
             {
                 Log.Logger.Aqui().Information(FuncionarioNaoEditado + IdFuncionarioFormat, id);
 
-                return FuncionarioNaoEditado;
+                return false;
             }
 
-            return FuncionarioEditado_ComSucesso;
+            return true;
         }
 
-        public string ExcluirEntidade(int id)
+        public bool ExcluirEntidade(int id)
         {
             var funcionarioExcluido = funcionarioRepository.Excluir(id);
 
@@ -67,18 +67,18 @@ namespace LocadoraVeiculos.Aplicacao.FuncionarioModule
             {
                 Log.Logger.Aqui().Information(FuncionarioNaoExcluido + IdFuncionarioFormat, id);
 
-                return FuncionarioNaoExcluido;
+                return false;
             }
 
-            return FuncionarioExcluido_ComSucesso;
+            return true;
         }
 
-        public string RegistrarNovaEntidade(Funcionario funcionario)
+        public bool RegistrarNovaEntidade(Funcionario funcionario)
         {
             var resultado = funcionario.Validar();
 
             if (resultado != "ESTA_VALIDO")
-                return resultado;
+                return false;
 
             var funcionarioInserido = funcionarioRepository.Inserir(funcionario);
 
@@ -86,10 +86,10 @@ namespace LocadoraVeiculos.Aplicacao.FuncionarioModule
             {
                 Log.Logger.Aqui().Warning(FuncionarioNaoRegistrado + IdFuncionarioFormat, funcionario.Id);
 
-                return FuncionarioNaoRegistrado;
+                return false;
             }
 
-            return FuncionarioRegistrado_ComSucesso;
+            return true;
         }
 
         public Funcionario SelecionarPorId(int id)

@@ -14,7 +14,8 @@ namespace LocadoraVeiculos.WebApi.Controllers
 {
     public class CondutorController : ControladorBase<CondutorListViewModel, CondutorDetailsViewModel, CondutorCreateViewModel, CondutorEditViewModel, Condutor>
     {
-        public CondutorController(ICondutorRepository condutorRepository, ICondutorAppService condutorAppService, IMapper mapper) : base(condutorRepository, condutorAppService, mapper)
+        public CondutorController(ICondutorRepository condutorRepository, ICondutorAppService condutorAppService, IMapper mapper, INotificador notificador
+            ) : base(condutorRepository, condutorAppService, mapper, notificador)
         {
         }
     }

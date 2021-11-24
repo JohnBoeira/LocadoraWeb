@@ -43,7 +43,7 @@ namespace LocadoraVeiculos.Aplicacao.CupomModule
             "Entidade excluído com sucesso";
 
 
-        public string EditarEntidade(int id, Cupom cupom)
+        public bool EditarEntidade(int id, Cupom cupom)
         {
             var cupomAlterado = cupomRepository.Editar(id, cupom);
 
@@ -51,13 +51,13 @@ namespace LocadoraVeiculos.Aplicacao.CupomModule
             {
                 Log.Logger.Aqui().Information(CupomNaoEditado + IdCupomFormat, id);
 
-                return CupomNaoEditado;
+                return false;
             }
 
-            return CupomEditado_ComSucesso;
+            return true;
         }
 
-        public string ExcluirEntidade(int id)
+        public bool ExcluirEntidade(int id)
         {
             var cupomExcluido = cupomRepository.Excluir(id);
 
@@ -65,18 +65,18 @@ namespace LocadoraVeiculos.Aplicacao.CupomModule
             {
                 Log.Logger.Aqui().Information(CupomNaoExcluido + IdCupomFormat, id);
 
-                return CupomNaoExcluido;
+                return false;
             }
 
-            return CupomExcluido_ComSucesso;
+            return true;
         }
 
-        public string RegistrarNovaEntidade(Cupom cupom)
+        public bool RegistrarNovaEntidade(Cupom cupom)
         {
             var resultado = cupom.Validar();
 
             if (resultado != "ESTA_VALIDO")
-                return resultado;
+                return false;
 
             var cupomInserido = cupomRepository.Inserir(cupom);
 
@@ -84,10 +84,10 @@ namespace LocadoraVeiculos.Aplicacao.CupomModule
             {
                 Log.Logger.Aqui().Warning(CupomNaoRegistrado + IdCupomFormat, cupom.Id);
 
-                return CupomNaoRegistrado;
+                return false;
             }
 
-            return CupomRegistrado_ComSucesso;
+            return true;
         }
 
         public Cupom SelecionarPorId(int id)

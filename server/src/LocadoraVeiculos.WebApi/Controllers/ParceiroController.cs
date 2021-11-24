@@ -20,7 +20,8 @@ namespace LocadoraVeiculos.WebApi.Controllers
     [ApiController]
     public class ParceiroController : ControladorBase<ParceiroListViewModel, ParceiroDetailsViewModel, ParceiroCreateViewModel, ParceiroEditViewModel, Parceiro>
     {
-        public ParceiroController(IParceiroRepository parceiroRepository, IParceiroAppService parceiroAppService, IMapper mapper) : base(parceiroRepository, parceiroAppService, mapper)
+        public ParceiroController(IParceiroRepository parceiroRepository, IParceiroAppService parceiroAppService, IMapper mapper, INotificador not
+            ) : base(parceiroRepository, parceiroAppService, mapper, notificador)
         {
         }
     }

@@ -9,10 +9,10 @@ namespace LocadoraVeiculos.Aplicacao.Shared
     public interface IAppService<TEntity>
     {
         List<TEntity> SelecionarTodos();
-        string RegistrarNovaEntidade(TEntity entidade);
+        bool RegistrarNovaEntidade(TEntity entidade);
         TEntity SelecionarPorId(int id);
-        string ExcluirEntidade(int id);
+        bool ExcluirEntidade(int id);
 
-        string EditarEntidade(int id, TEntity parceiro);
+        bool EditarEntidade(int id, TEntity parceiro);
     }
 }
