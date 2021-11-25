@@ -45,28 +45,6 @@ namespace LocadoraVeiculos.Dominio.CupomModule
 
         public virtual List<Locacao> Locacoes { get; set; }
 
-        public override string Validar()
-        {
-            string resultadoValidacao = "";
-
-            if (string.IsNullOrEmpty(Nome))
-                resultadoValidacao += "O campo nome é obrigatório e não pode ser vazio.";
-
-            if (DataValidade == DateTime.MinValue || DataValidade == DateTime.MaxValue)
-                resultadoValidacao += "A data Invalida, Insira uma data valida";
-
-            if (ParceiroId == 0)
-                resultadoValidacao += "O campo Parceiro é obrigatório e não pode ser vazio.";
-
-            if (ValorMinimo < 0)
-                resultadoValidacao += "O campo Valor Minimo não pode ser menor que Zero.";
-
-            if (resultadoValidacao == "")
-                resultadoValidacao = "ESTA_VALIDO";
-
-            return resultadoValidacao;
-        }
-
         public decimal CalcularDesconto(decimal valorTotal)
         {
             decimal valor = 0;

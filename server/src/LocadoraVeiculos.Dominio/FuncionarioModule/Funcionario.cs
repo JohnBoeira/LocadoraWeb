@@ -24,30 +24,7 @@ namespace LocadoraVeiculos.Dominio.FuncionarioModule
             Salario = salario;
         }
 
-        public override string Validar()
-        {
-            string resultadoValidacao = "";
-
-            if (string.IsNullOrEmpty(Nome))
-                resultadoValidacao = "O atributo nome é obrigatório e não pode ser vazio.";
-
-            if (string.IsNullOrEmpty(Usuario))
-                resultadoValidacao = "O atributo usuário é obrigatório e não pode ser vazio.";
-
-            if (string.IsNullOrEmpty(Senha))
-                resultadoValidacao = "O atributo senha é obrigatório e não pode ser vazio.";
-
-            if (DataAdmissao > DateTime.Now)
-                resultadoValidacao = "A data de admissão do funcionário não pode ser maior que a Data atual.";
-
-            if (Salario <= 0)
-                resultadoValidacao = "O atributo salário é obrigatório e não pode ser vazio.";
-
-            if (resultadoValidacao == "")
-                resultadoValidacao = "ESTA_VALIDO";
-
-            return resultadoValidacao;
-        }
+       
 
         public override bool Equals(object obj)
         {

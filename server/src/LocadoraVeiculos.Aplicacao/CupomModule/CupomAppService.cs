@@ -1,5 +1,6 @@
 ﻿using LocadoraVeiculos.Aplicacao.Shared;
 using LocadoraVeiculos.Dominio.CupomModule;
+using LocadoraVeiculos.Dominio.Shared;
 using LocadoraVeiculos.Infra.Logging;
 using Serilog;
 using System;
@@ -16,10 +17,12 @@ namespace LocadoraVeiculos.Aplicacao.CupomModule
     public class CupomAppService : ICupomAppService
     {
         private readonly ICupomRepository cupomRepository;
+        private readonly INotificador notificador;
 
-        public CupomAppService(ICupomRepository cupomRepository)
+        public CupomAppService(ICupomRepository cupomRepository, INotificador notificador)
         {
             this.cupomRepository = cupomRepository;
+            this.notificador = notificador;
         }
 
         private const string IdCupomFormat = "[Id do Cupom: {CupomId}]";
@@ -73,10 +76,18 @@ namespace LocadoraVeiculos.Aplicacao.CupomModule
 
         public bool RegistrarNovaEntidade(Cupom cupom)
         {
-            var resultado = cupom.Validar();
+            CupomValidator cupomValidator = new CupomValidator();
 
-            if (resultado != "ESTA_VALIDO")
+            var resultado = cupomValidator.Validate(cupom);
+
+            if (!resultado.IsValid)
+            {
+                foreach (var erro in resultado.Errors)
+                {
+                    notificador.RegistrarNotificacao(erro.ErrorMessage);
+                }
                 return false;
+            }
 
             var cupomInserido = cupomRepository.Inserir(cupom);
 

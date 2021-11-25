@@ -77,11 +77,6 @@ namespace LocadoraVeiculos.Dominio.GrupoVeiculoModule
             return valorPlano;
         }
 
-        public override string Validar()
-        {
-            return "ESTA_VALIDO";
-        }
-
         public override bool Equals(object obj)
         {
             return Equals(obj as PlanoCobranca);

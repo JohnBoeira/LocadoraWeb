@@ -25,31 +25,6 @@ namespace LocadoraVeiculos.Dominio.TaxaModule
             TipoTaxa = tipoTaxa;
         }
 
-        public override string Validar()
-        {
-            string resultadoValidacao = "";
-
-            if (string.IsNullOrEmpty(Nome))
-                resultadoValidacao += "O campo nome é obrigatório e não pode ser vazio.";
-
-            if (Valor < 0)
-                resultadoValidacao += "Taxa Fixa não pode ser menor que Zero.";
-
-            if (TipoTaxa < 0)
-                resultadoValidacao += "Taxa Diaria não pode ser Menor que Zero.";
-
-            if (Valor == 0 && TipoTaxa <= 0)
-                resultadoValidacao += "Taxa Diaria não pode ser Menor que Zero.";
-
-            if (TipoTaxa == 0 && Valor <= 0)
-                resultadoValidacao += "Taxa Diaria não pode ser Menor que Zero.";
-
-            if (resultadoValidacao == "")
-                resultadoValidacao = "ESTA_VALIDO";
-
-            return resultadoValidacao;
-        }
-
         public decimal CalcularValor(int quantidadeDias)
         {
             if (TipoTaxa == TipoTaxaEnum.CobradoPorDia)

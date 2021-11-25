@@ -1,5 +1,6 @@
 ﻿using LocadoraVeiculos.Aplicacao.Shared;
 using LocadoraVeiculos.Dominio.FuncionarioModule;
+using LocadoraVeiculos.Dominio.Shared;
 using LocadoraVeiculos.Infra.Logging;
 using Serilog;
 using System;
@@ -18,9 +19,11 @@ namespace LocadoraVeiculos.Aplicacao.FuncionarioModule
     public class FuncionarioAppService : IFuncionarioAppService
     {
         private readonly IFuncionarioRepository funcionarioRepository;
+        private readonly INotificador notificador;
 
-        public FuncionarioAppService(IFuncionarioRepository funcionarioRepository)
+        public FuncionarioAppService(IFuncionarioRepository funcionarioRepository, INotificador notificador)
         {
+            this.notificador = notificador;
             this.funcionarioRepository = funcionarioRepository;
         }
 
@@ -75,10 +78,18 @@ namespace LocadoraVeiculos.Aplicacao.FuncionarioModule
 
         public bool RegistrarNovaEntidade(Funcionario funcionario)
         {
-            var resultado = funcionario.Validar();
+            FuncionarioValidator validations = new FuncionarioValidator();
 
-            if (resultado != "ESTA_VALIDO")
+            var resultado = validations.Validate(funcionario);
+
+            if (!resultado.IsValid)
+            {
+                foreach (var erro in resultado.Errors)
+                {
+                    notificador.RegistrarNotificacao(erro.ErrorMessage);
+                }
                 return false;
+            }
 
             var funcionarioInserido = funcionarioRepository.Inserir(funcionario);
 

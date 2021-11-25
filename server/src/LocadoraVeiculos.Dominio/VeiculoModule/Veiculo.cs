@@ -50,33 +50,7 @@ namespace LocadoraVeiculos.Dominio.VeiculoModule
             return $"{Modelo} -> {Placa}";
         }
 
-        public override string Validar()
-        {
-            string resultadoValidacao = "";
-
-            if (string.IsNullOrEmpty(Placa))
-                resultadoValidacao = "O campo Placa é obrigatório";
-
-            if (string.IsNullOrEmpty(Modelo))
-                resultadoValidacao = "O campo Modelo é obrigatório";
-
-            if (string.IsNullOrEmpty(Fabricante))
-                resultadoValidacao = "O campo Fabricante é obrigatório";
-
-            if (Quilometragem < 0)
-                resultadoValidacao = "O campo Quilometragem não pode ser menor que zero";
-
-            if (QtdLitrosTanque <= 0)
-                resultadoValidacao = "O campo do Tanque de Combustivel não pode ser menor que zero";
-
-            if (string.IsNullOrEmpty(TipoCombustivel.ToString()))
-                resultadoValidacao = "O campo Tipo de combustivel é obrigatório";
-
-            if (resultadoValidacao == "")
-                resultadoValidacao = "ESTA_VALIDO";
-
-            return resultadoValidacao;
-        }
+     
 
         public int QuantidadeDeListrosParaAbastecer(MarcadorCombustivelEnum marcadorCombustivel)
         {

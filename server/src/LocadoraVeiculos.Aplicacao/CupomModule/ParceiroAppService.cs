@@ -1,5 +1,6 @@
 ﻿using LocadoraVeiculos.Aplicacao.Shared;
 using LocadoraVeiculos.Dominio.CupomModule;
+using LocadoraVeiculos.Dominio.Shared;
 using LocadoraVeiculos.Infra.Logging;
 using Serilog;
 using System.Collections.Generic;
@@ -36,9 +37,11 @@ namespace LocadoraVeiculos.Aplicacao.CupomModule
 
 
         private readonly IParceiroRepository parceiroRepository;
+        private readonly INotificador notificador;
 
-        public ParceiroAppService(IParceiroRepository parceiroRepository)
+        public ParceiroAppService(IParceiroRepository parceiroRepository, INotificador notificador)
         {
+            this.notificador = notificador;
             this.parceiroRepository = parceiroRepository;
         }
 
@@ -74,10 +77,18 @@ namespace LocadoraVeiculos.Aplicacao.CupomModule
 
         public bool RegistrarNovaEntidade(Parceiro entidade)
         {
-            var resultado = entidade.Validar();
+            ParceiroValidator validations = new ParceiroValidator();
 
-            if (resultado != "ESTA_VALIDO")
+            var resultado = validations.Validate(entidade);
+
+            if (!resultado.IsValid)
+            {
+                foreach (var erro in resultado.Errors)
+                {
+                    notificador.RegistrarNotificacao(erro.ErrorMessage);
+                }
                 return false;
+            }
 
             var parceiroInserido = parceiroRepository.Inserir(entidade);
 

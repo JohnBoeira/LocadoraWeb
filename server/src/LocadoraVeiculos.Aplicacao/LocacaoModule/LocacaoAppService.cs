@@ -1,4 +1,5 @@
 ﻿using LocadoraVeiculos.Dominio.LocacaoModule;
+using LocadoraVeiculos.Dominio.Shared;
 using LocadoraVeiculos.Dominio.VeiculoModule;
 using LocadoraVeiculos.Infra.Logging;
 using Serilog;
@@ -73,13 +74,16 @@ namespace LocadoraVeiculos.Aplicacao.LocacaoModule
         private readonly IVerificadorConexaoInternet verificadorInternet;
         private readonly INotificadorEmailLocacao notificadorEmail;
         private readonly IVeiculoRepository veiculoRepository;
+        private readonly INotificador notificador;
 
         public LocacaoAppService(ILocacaoRepository locacaoRepository,
            IGeradorRelatorioLocacao geradorRelatorio,
            IVerificadorConexaoInternet verificadorInternet,
            INotificadorEmailLocacao notificadorEmail,
-           IVeiculoRepository veiculoRepository)
+           IVeiculoRepository veiculoRepository,
+           INotificador notificador)
         {
+            this.notificador = notificador;
             this.locacaoRepository = locacaoRepository;
             this.geradorRelatorio = geradorRelatorio;
             this.verificadorInternet = verificadorInternet;
@@ -89,10 +93,20 @@ namespace LocadoraVeiculos.Aplicacao.LocacaoModule
 
         public string RegistrarNovaLocacao(Locacao locacao)
         {
-            var resultado = locacao.Validar();
+            LocacaoValidator validations = new();
 
-            if (resultado != "ESTA_VALIDO")
-                return resultado;
+
+            var resultado = validations.Validate(locacao);
+
+            if (!resultado.IsValid)
+            {
+                foreach (var erro in resultado.Errors)
+                {
+                    notificador.RegistrarNotificacao(erro.ErrorMessage);
+                }
+                return "";
+            }
+
 
             var locacaoInserida = locacaoRepository.Inserir(locacao);
 
@@ -129,7 +143,7 @@ namespace LocadoraVeiculos.Aplicacao.LocacaoModule
             {
                 locacao.SituacaoEnvioEmail = SituacaoEnvioEmailEnum.EmailEnviado;
 
-                resultado = LocacaoRegistrada_EmailEnviado;
+                //resultado = LocacaoRegistrada_EmailEnviado;
 
                 Log.Logger.Aqui().Information(LocacaoRegistrada_EmailEnviado + IdLocacaoFormat, locacao.Id);
             }
@@ -137,14 +151,14 @@ namespace LocadoraVeiculos.Aplicacao.LocacaoModule
             {
                 locacao.SituacaoEnvioEmail = SituacaoEnvioEmailEnum.EmailPendente;
 
-                resultado = LocacaoRegistrada_EmailEnviado;
+                //resultado = LocacaoRegistrada_EmailEnviado;
 
                 Log.Logger.Aqui().Warning(LocacaoRegistrada_RelatorioNaoEnviado + IdLocacaoFormat, locacao.Id);
             }
 
             locacaoRepository.Editar(locacao);
 
-            return resultado;
+            return "";
         }
 
         public string RegistrarDevolucao(Locacao locacao)

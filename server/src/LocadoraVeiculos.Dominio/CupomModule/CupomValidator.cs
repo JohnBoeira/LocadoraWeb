@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LocadoraVeiculos.Dominio.CupomModule
 {
-    internal class CupomValidator : AbstractValidator<Cupom>
+    public class CupomValidator : AbstractValidator<Cupom>
     {
         public CupomValidator()
         {

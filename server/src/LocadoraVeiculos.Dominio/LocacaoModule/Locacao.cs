@@ -218,51 +218,7 @@ namespace LocadoraVeiculos.Dominio.LocacaoModule
             return resultadoValidacao;
         }
 
-        public override string Validar()
-        {
-            string resultadoValidacao = "";
-
-            if (Funcionario == null)
-                resultadoValidacao = "Selecione um funcionário";
-
-            if (Condutor == null)
-                resultadoValidacao += QuebraDeLinha(resultadoValidacao) + "Selecione um condutor";
-
-            if (Veiculo == null)
-                resultadoValidacao += QuebraDeLinha(resultadoValidacao) + "Selecione um veículo";
-
-            if (Veiculo != null && Id == 0 && Veiculo.EstaAlugado())
-                resultadoValidacao += QuebraDeLinha(resultadoValidacao) + "O Veículo já está alugado";
-
-            if (PlanoCobranca == null)
-                resultadoValidacao += QuebraDeLinha(resultadoValidacao) + "Selecione o plano de cobrança";
-
-            if (DataLocacao == DateTime.MinValue)
-                resultadoValidacao += QuebraDeLinha(resultadoValidacao) + "Selecione a data da locação";
-
-            if (DataDevolucaoPrevista == DateTime.MinValue)
-                resultadoValidacao += QuebraDeLinha(resultadoValidacao) + "Selecione a data prevista da entrega";
-
-            if (DataDevolucaoPrevista < DataLocacao)
-                resultadoValidacao += QuebraDeLinha(resultadoValidacao) + "A data prevista da entrega não pode ser menor que data da locação";
-
-            if (RegistrandoDevolucao)
-            {
-                if (QuilometragemPercorrida == 0)
-                    resultadoValidacao += QuebraDeLinha(resultadoValidacao) + "Informe a quilometragem percorrida";
-
-                if (DataDevolucaoPrevista < DataLocacao)
-                    resultadoValidacao += QuebraDeLinha(resultadoValidacao) + "A data prevista da entrega não pode ser menor que data da locação";
-
-                if (MarcadorCombustivel == MarcadorCombustivelEnum.NaoInformado)
-                    resultadoValidacao += QuebraDeLinha(resultadoValidacao) + "Informe o status do tanque de combustível";
-            }
-
-            if (resultadoValidacao == "")
-                resultadoValidacao = "ESTA_VALIDO";
-
-            return resultadoValidacao;
-        }
+     
 
         public void SelecionarTaxa(Taxa taxa)
         {

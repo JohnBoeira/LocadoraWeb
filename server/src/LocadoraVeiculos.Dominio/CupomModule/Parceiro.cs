@@ -25,17 +25,6 @@ namespace LocadoraVeiculos.Dominio.CupomModule
 
         public virtual ICollection<Cupom> Cupons { get; set; }
 
-        public override string Validar()
-        {
-            string resultadoValidacao = "";
-            if (string.IsNullOrEmpty(Nome))
-                resultadoValidacao = "O Nome do Parceiro é obrigatório .";
-            if (resultadoValidacao == "")
-                resultadoValidacao = "ESTA_VALIDO";
-
-            return resultadoValidacao;
-        }
-
         public override bool Equals(object obj)
         {
             return Equals(obj as Parceiro);

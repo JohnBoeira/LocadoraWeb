@@ -32,12 +32,6 @@ namespace LocadoraVeiculos.Dominio.GrupoVeiculoModule
             plano.GrupoVeiculo = this;
         }
 
-
-        public override string Validar()
-        {
-            return "ESTA_VALIDO";
-        }
-
         public PlanoCobranca ObtemPlano(TipoPlanoCobrancaEnum plano)
         {
             return PlanosCobranca.First(p => p.TipoPlano == plano);
