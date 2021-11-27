@@ -32,7 +32,8 @@ const routes: Routes = [
   { path: 'cliente/criar', component: ClienteCriarComponent },
   { path: 'cliente/editar/:id', component: ClienteEditarComponent },
   { path: 'condutor/listar', component: CondutorListarComponent },
-  { path: 'condutor/criar', component: CondutorCriarComponent }
+  { path: 'condutor/criar', component: CondutorCriarComponent },
+  { path: 'condutor/editar/:id', component: CondutorCriarComponent }
 ];
 
 @NgModule({

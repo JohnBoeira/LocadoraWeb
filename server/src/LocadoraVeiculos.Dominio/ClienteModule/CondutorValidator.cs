@@ -23,11 +23,11 @@ namespace LocadoraVeiculos.Dominio.ClienteModule
 
             RuleFor(c => c.Rg).NotEmpty().NotNull().WithMessage("Campo {PropertyName} é obrigatório ");
 
-            RuleFor(c => c.DataValidadeCnh).Equal(DateTime.MinValue).WithMessage("Campo {PropertyName} é obrigatório ");
+            RuleFor(c => c.DataValidadeCnh).NotEqual(DateTime.MinValue).WithMessage("Campo {PropertyName} é obrigatório ");
 
-            RuleFor(c => c.DataValidadeCnh).LessThan(DateTime.Now).WithMessage("A validade da cnh inserida está expirada, tente novamente");
+            RuleFor(c => c.DataValidadeCnh).NotNull().NotEmpty().WithMessage("A validade da cnh inserida está expirada, tente novamente");
 
-            RuleFor(c => c.ClienteId).Equal(0).WithMessage("O campo Cliente é obrigatório e não pode ser Vazio");
+            RuleFor(c => c.ClienteId).NotEqual(0).WithMessage("O campo Cliente é obrigatório e não pode ser Vazio");
 
      
         }

@@ -1,1 +1,71 @@
-<p>condutor-editar works!</p>
+<div class="container main-container">
+    <h4>Editar Condutor</h4>
+    <hr />
+    <form novalidate [formGroup]="cadastroForm" (ngSubmit)='atualizarCondutor()'>
+        <div clas="form-group">
+            <label class="col-md-2 control-label" for="nome">Nome</label>
+            <div class="col-md-10">
+                <input class="form-control" id="nome" type="text" placeholder="Nome (requerido)"
+                    formControlName="nome" />
+            </div>
+
+            <label class="col-md-2 control-label" for="endereco">Endereço</label>
+            <div class="col-md-10">
+                <input class="form-control" id="endereco" type="text" placeholder="Endereço (requerido)"
+                    formControlName="endereco" />
+            </div>
+
+            <label class="col-md-2 control-label" for="telefone">Telefone</label>
+            <div class="col-md-10">
+                <input class="form-control" id="telefone" type="text" placeholder="Telefone (requerido)"
+                    formControlName="telefone" />
+            </div>
+
+            <label class="col-md-2 control-label" for="rg">RG</label>
+            <div class="col-md-10">
+                <input class="form-control" id="rg" type="text" placeholder="RG"
+                    formControlName="rg" />
+            </div>
+
+            <label class="col-md-2 control-label" for="cpf">CPF</label>
+            <div class="col-md-10">
+                <input class="form-control" id="cpf" type="text" placeholder="CPF"
+                    formControlName="cpf" />
+            </div>
+
+            <label class="col-md-2 control-label" for="cnh">CNH</label>
+            <div class="col-md-10">
+                <input class="form-control" id="cnh" type="text" placeholder="CNH (requerido)"
+                    formControlName="cnh" />
+            </div>
+
+            <label class="col-md-2 control-label" for="dataValidadeCNH">Data Validade CNH</label>
+            <div class="col-md-10">
+                <div>
+                    <input class="form-control" id="dataValidadeCNH" type="date" placeholder="Data Validade CNH (requerido)"
+                        formControlName="dataValidadeCNH" />
+                </div>
+            </div>
+
+            <label class="col-md-2 control-label" for="cliente">Cliente</label>
+            <div class="col-md-10">
+                <select class="form-control" id="clienteId" formControlName="clienteId">
+                    <option value="">Selecione um Cliente</option>
+                    <option *ngFor="let cliente of listaClientes" value={{cliente.id}}>
+                        {{cliente.nome}}
+                    </option>
+                </select>
+            </div>
+           
+        </div>
+        <br>
+        <div class="form-group">
+            <div class="container">
+                <button class="btn btn-success" id="registrar" type="submit">Salvar</button>
+                <button class="btn btn-danger" id="cancelar" (click)="cancelar()">Cancelar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>

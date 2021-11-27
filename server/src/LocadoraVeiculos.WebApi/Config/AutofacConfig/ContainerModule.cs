@@ -7,6 +7,7 @@ using LocadoraVeiculos.Aplicacao.FuncionarioModule;
 using LocadoraVeiculos.Dominio.ClienteModule;
 using LocadoraVeiculos.Dominio.CupomModule;
 using LocadoraVeiculos.Dominio.FuncionarioModule;
+using LocadoraVeiculos.Dominio.Shared;
 using LocadoraVeiculos.Infra.ORM;
 using LocadoraVeiculos.Infra.ORM.ClienteModule;
 using LocadoraVeiculos.Infra.ORM.CupomModule;
@@ -38,6 +39,10 @@ namespace LocadoraVeiculos.WebApi.Config.AutofacConfig
 
             builder.RegisterType<CondutorOrmDao>().As<ICondutorRepository>();
             builder.RegisterType<CondutorAppService>().As<ICondutorAppService>();
+
+            builder.RegisterType<Notificador>().As<INotificador>();
+
+            
 
             builder.RegisterType<Mapper>().As<IMapper>();
 
