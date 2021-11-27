@@ -39,6 +39,12 @@ namespace LocadoraVeiculos.Dominio.LocacaoModule
             
 
             RuleFor(l => l.VeiculoId).NotEqual(0).When(l => l.Veiculo.EstaAlugado() == true).WithMessage("Veículo já alugado");
+            //devolução
+            RuleFor(l => l.QuilometragemPercorrida).NotEqual(0).When(l => l.RegistrandoDevolucao == true).WithMessage("O campo {PropertyName} é obrigatório");
+            RuleFor(l => l.DataDevolucaoRealizada).LessThan(l => l.DataLocacao).When(l => l.RegistrandoDevolucao == true).WithMessage("O campo {PropertyName} é obrigatório");
+            RuleFor(l => l.MarcadorCombustivel).NotEqual(MarcadorCombustivelEnum.NaoInformado).When(l => l.RegistrandoDevolucao == true).WithMessage("O campo {PropertyName} é obrigatório");
+
+            
 
         }
     }
