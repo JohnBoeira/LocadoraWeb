@@ -4,14 +4,17 @@ using LocadoraVeiculos.Aplicacao.ClienteModule;
 using LocadoraVeiculos.Aplicacao.CondutorModule;
 using LocadoraVeiculos.Aplicacao.CupomModule;
 using LocadoraVeiculos.Aplicacao.FuncionarioModule;
+using LocadoraVeiculos.Aplicacao.TaxaModule;
 using LocadoraVeiculos.Dominio.ClienteModule;
 using LocadoraVeiculos.Dominio.CupomModule;
 using LocadoraVeiculos.Dominio.FuncionarioModule;
 using LocadoraVeiculos.Dominio.Shared;
+using LocadoraVeiculos.Dominio.TaxaModule;
 using LocadoraVeiculos.Infra.ORM;
 using LocadoraVeiculos.Infra.ORM.ClienteModule;
 using LocadoraVeiculos.Infra.ORM.CupomModule;
 using LocadoraVeiculos.Infra.ORM.FuncionarioModule;
+using LocadoraVeiculos.Infra.ORM.TaxaModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +45,9 @@ namespace LocadoraVeiculos.WebApi.Config.AutofacConfig
 
             builder.RegisterType<Notificador>().As<INotificador>();
 
-            
+            builder.RegisterType<TaxaOrmDao>().As<ITaxaRepository>();
+            builder.RegisterType<TaxaAppService>().As<ITaxaAppService>();
+
 
             builder.RegisterType<Mapper>().As<IMapper>();
 

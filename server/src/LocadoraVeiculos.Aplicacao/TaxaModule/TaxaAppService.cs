@@ -1,11 +1,11 @@
-﻿using LocadoraVeiculos.Dominio.TaxaModule;
+﻿using LocadoraVeiculos.Aplicacao.Shared;
+using LocadoraVeiculos.Dominio.TaxaModule;
 using System.Collections.Generic;
 
 namespace LocadoraVeiculos.Aplicacao.TaxaModule
 {
-    public interface ITaxaAppService
+    public interface ITaxaAppService : IAppService<Taxa>
     {
-        List<Taxa> SelecionarTodos();
 
         List<Taxa> SelecionarTaxasNaoAdicionadas(List<Taxa> taxasJaAdicionadas);
     }
