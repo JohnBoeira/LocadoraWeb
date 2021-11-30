@@ -27,25 +27,6 @@ namespace LocadoraVeiculos.Aplicacao.FuncionarioModule
             this.funcionarioRepository = funcionarioRepository;
         }
 
-        private const string IdFuncionarioFormat = "[Id do Funcionario: {FuncionarioId}]";
-
-        private const string FuncionarioRegistrado_ComSucesso =
-            "Entidade registrado com sucesso";
-
-        private const string FuncionarioNaoRegistrado =
-            "Entidade NÃO registrado. Tivemos problemas com a inserção no banco de dados ";
-
-        private const string FuncionarioNaoEditado =
-           "Entidade não editado. Tivemos problemas com a exclusão no banco de dados";
-
-        private const string FuncionarioEditado_ComSucesso =
-            "Entidade editado com sucesso";
-
-        private const string FuncionarioNaoExcluido =
-           "Funcionario não excluído. Tivemos problemas com a exclusão no banco de dados";
-
-        private const string FuncionarioExcluido_ComSucesso =
-            "Entidade excluído com sucesso";
 
 
         public bool EditarEntidade(int id, Funcionario funcionario)
@@ -54,7 +35,7 @@ namespace LocadoraVeiculos.Aplicacao.FuncionarioModule
 
             if (funcionarioAlterado == false)
             {
-                Log.Logger.Aqui().Information(FuncionarioNaoEditado + IdFuncionarioFormat, id);
+                //Log.Logger.Aqui().Information(FuncionarioNaoEditado + IdFuncionarioFormat, id);
 
                 return false;
             }
@@ -68,7 +49,7 @@ namespace LocadoraVeiculos.Aplicacao.FuncionarioModule
 
             if (funcionarioExcluido == false)
             {
-                Log.Logger.Aqui().Information(FuncionarioNaoExcluido + IdFuncionarioFormat, id);
+                //Log.Logger.Aqui().Information(FuncionarioNaoExcluido + IdFuncionarioFormat, id);
 
                 return false;
             }
@@ -95,7 +76,7 @@ namespace LocadoraVeiculos.Aplicacao.FuncionarioModule
 
             if (funcionarioInserido == false)
             {
-                Log.Logger.Aqui().Warning(FuncionarioNaoRegistrado + IdFuncionarioFormat, funcionario.Id);
+                //Log.Logger.Aqui().Warning(FuncionarioNaoRegistrado + IdFuncionarioFormat, funcionario.Id);
 
                 return false;
             }

@@ -4,8 +4,7 @@ using System.Collections.Generic;
 namespace LocadoraVeiculos.Dominio.TaxaModule
 {
     public interface ITaxaRepository :
-        IRepository<Taxa, int>,
-        IReadOnlyRepository<Taxa, int>
+        IRepository<Taxa, int>
     {
         List<Taxa> SelecionarTaxasNaoAdicionadas(List<Taxa> taxasJaAdicionadas);
     }

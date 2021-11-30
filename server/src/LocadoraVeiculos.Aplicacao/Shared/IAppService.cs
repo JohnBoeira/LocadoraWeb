@@ -14,5 +14,6 @@ namespace LocadoraVeiculos.Aplicacao.Shared
         bool ExcluirEntidade(int id);
 
         bool EditarEntidade(int id, TEntity parceiro);
+       
     }
 }

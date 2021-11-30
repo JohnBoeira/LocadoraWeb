@@ -1,4 +1,7 @@
-﻿using LocadoraVeiculos.Aplicacao.Shared;
+﻿using FluentValidation;
+using LocadoraVeiculos.Aplicacao.Shared;
+using LocadoraVeiculos.Dominio;
+using LocadoraVeiculos.Dominio.Shared;
 using LocadoraVeiculos.Dominio.TaxaModule;
 using System.Collections.Generic;
 
@@ -9,11 +12,11 @@ namespace LocadoraVeiculos.Aplicacao.TaxaModule
 
         List<Taxa> SelecionarTaxasNaoAdicionadas(List<Taxa> taxasJaAdicionadas);
     }
-    public class TaxaAppService : ITaxaAppService
+    public class TaxaAppService : AppServiceBase
     {
         private readonly ITaxaRepository taxaRepository;
 
-        public TaxaAppService(ITaxaRepository taxaRepository)
+        public TaxaAppService(ITaxaRepository taxaRepository, INotificador notificador) : base((IRepository<EntidadeBase<int>, int>)taxaRepository, notificador)
         {
             this.taxaRepository = taxaRepository;
         }
@@ -23,9 +26,6 @@ namespace LocadoraVeiculos.Aplicacao.TaxaModule
             return taxaRepository.SelecionarTaxasNaoAdicionadas(taxasJaAdicionadas);
         }
 
-        public List<Taxa> SelecionarTodos()
-        {
-            return taxaRepository.SelecionarTodos();
-        }
+        
     }
 }
