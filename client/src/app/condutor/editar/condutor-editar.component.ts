@@ -31,11 +31,13 @@ export class CondutorEditarComponent implements OnInit {
 
     this.cadastroForm = new FormGroup({
       nome: new FormControl(''),
-      valor: new FormControl(''),
-      valorMinimo: new FormControl(''),
+      endereco: new FormControl(''),
+      telefone: new FormControl(''),
+      rg: new FormControl(''),
+      cpf: new FormControl(''),
+      cnh: new FormControl(''),
       dataValidade: new FormControl(''),
       ClienteId: new FormControl(''),
-      tipo: new FormControl('')
     });
 
     this.carregarClientes();
